@@ -38,7 +38,7 @@ require_once('HTML/Template/IT.php');
 * @version  $Id$
 * @package  IT[X]
 */
-class IntegratedTemplateExtension extends IntegratedTemplate {
+class IntegratedTemplateExtension extends HTML_Template_IT {
 
     /**
     * Array with all warnings.
@@ -119,9 +119,8 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
 
         $this->checkblocknameRegExp = '@' . $this->blocknameRegExp . '@';
         $this->functionRegExp = '@' . $this->functionPrefix . '(' . $this->functionnameRegExp . ')\s*\(@sm';
-        
-        $this->IntegratedTemplate($root);
-                                                                                            
+
+        $this->HTML_Template_IT($root);
     } // end func constructor
     
     function init()
@@ -342,7 +341,7 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
                 // search the value in the list of blockvariables
                 reset($variables);
                 while (list($k, $variable) = each($variables)) {
-                    if ($variable == $placeholder) {
+                    if ($k == $placeholder) {
                         $found = $block;
                         break;
                     }
