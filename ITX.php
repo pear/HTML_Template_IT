@@ -20,6 +20,7 @@
 //
 
 require_once('HTML/Template/IT.php');
+require_once 'HTML/Template/IT_Error.php';
 
 /**
 * Integrated Template Extension - ITX
@@ -107,7 +108,8 @@ class HTML_Template_ITX extends HTML_Template_IT {
     var $callback         = array();
 
     /**
-    * Builds some complex regexps and calls the constructor of the parent class.
+    * Builds some complex regexps and calls the constructor
+    * of the parent class.
     *
     * Make sure that you call this constructor if you derive your own
     * template class from this one.
@@ -118,14 +120,14 @@ class HTML_Template_ITX extends HTML_Template_IT {
     {
 
         $this->checkblocknameRegExp = '@' . $this->blocknameRegExp . '@';
-        $this->functionRegExp = '@' . $this->functionPrefix . '(' . $this->functionnameRegExp . ')\s*\(@sm';
+        $this->functionRegExp = '@' . $this->functionPrefix . '(' .
+                                $this->functionnameRegExp . ')\s*\(@sm';
 
         $this->HTML_Template_IT($root);
     } // end func constructor
 
     function init()
     {
-
         $this->free();
         $this->buildFunctionlist();
         $this->findBlocks($this->template);
@@ -138,21 +140,23 @@ class HTML_Template_ITX extends HTML_Template_IT {
     /**
     * Replaces an existing block with new content.
     *
-    * This function will replace a block of the template and all blocks contained in
-    * the replaced block and add a new block insted, means you can dynamically change your
-    * template.
+    * This function will replace a block of the template and all blocks
+    * contained in the replaced block and add a new block insted, means
+    * you can dynamically change your template.
     *
-    * Note that changing the template structure violates one of the IT[X] development
-    * goals. I've tried to write a simple to use template engine supporting blocks.
-    * In contrast to other systems IT[X] analyses the way you've nested blocks and knows
-    * which block belongs into another block. The nesting information helps to make the API
-    * short and simple. Replacing blocks does not only mean that IT[X] has to update
-    * the nesting information (relatively time consumpting task) but you have to
-    * make sure that you do not get confused due to the template change itself.
+    * Note that changing the template structure violates one of the IT[X]
+    * development goals. I've tried to write a simple to use template engine
+    * supporting blocks. In contrast to other systems IT[X] analyses the way
+    * you've nested blocks and knows which block belongs into another block.
+    * The nesting information helps to make the API short and simple. Replacing
+    * blocks does not only mean that IT[X] has to update the nesting
+    * information (relatively time consumpting task) but you have to make sure
+    * that you do not get confused due to the template change itself.
     *
-    * @param    string    Blockname
-    * @param    string    Blockcontent
-    * @param    boolean   true if the new block inherits the content of the old block
+    * @param    string      Blockname
+    * @param    string      Blockcontent
+    * @param    boolean     true if the new block inherits the content
+    *                       of the old block
     * @return   boolean
     * @throws   IT_Error
     * @see      replaceBlockfile(), addBlock(), addBlockfile()
@@ -161,7 +165,11 @@ class HTML_Template_ITX extends HTML_Template_IT {
     function replaceBlock($block, $template, $keep_content = false)
     {
         if (!isset($this->blocklist[$block])) {
-            return new IT_Error("The block '$block' does not exist in the template and thus it can't be replaced.", __FILE__, __LINE__);
+            return new IT_Error(
+            "The block "."'$block'".
+            " does not exist in the template and thus it can't be replaced.",
+            __FILE__, __LINE__
+            );
         }
         if ('' == $template) {
             return new IT_Error('No block content given.', __FILE__, __LINE__);
@@ -192,7 +200,8 @@ class HTML_Template_ITX extends HTML_Template_IT {
     } // end func replaceBlock
 
     /**
-    * Replaces an existing block with new content from a file. Warning: not implemented yet.
+    * Replaces an existing block with new content from a file.
+    *
     * @brother replaceBlock()
     * @param    string    Blockname
     * @param    string    Name of the file that contains the blockcontent
@@ -200,29 +209,33 @@ class HTML_Template_ITX extends HTML_Template_IT {
     */
     function replaceBlockfile($block, $filename, $keep_content = false)
     {
-        return $this->replaceBlock($block, $this->getFile($filename));
+        return $this->replaceBlock($block, $this->getFile($filename), $keep_content);
     } // end func replaceBlockfile
 
     /**
-    * Adds a block to the template changing a variable placeholder to a block placeholder.
+    * Adds a block to the template changing a variable placeholder
+    * to a block placeholder.
     *
     * Add means "replace a variable placeholder by a new block".
     * This is different to PHPLibs templates. The function loads a
     * block, creates a handle for it and assigns it to a certain
     * variable placeholder. To to the same with PHPLibs templates you would
     * call set_file() to create the handle and parse() to assign the
-    * parsed block to a variable. By this PHPLibs templates assume that you tend
-    * to assign a block to more than one one placeholder. To assign a parsed block
-    * to more than only the placeholder you specify in this function you have
-    * to use a combination of getBlock() and setVariable().
+    * parsed block to a variable. By this PHPLibs templates assume
+    * that you tend to assign a block to more than one one placeholder.
+    * To assign a parsed block to more than only the placeholder you specify
+    * in this function you have to use a combination of getBlock()
+    * and setVariable().
     *
     * As no updates to cached data is necessary addBlock() and addBlockfile()
     * are rather "cheap" meaning quick operations.
     *
-    * The block content must not start with <!-- BEGIN blockname --> and end with
-    * <!-- END blockname --> this would cause overhead and produce an error.
+    * The block content must not start with <!-- BEGIN blockname -->
+    * and end with <!-- END blockname --> this would cause overhead and
+    * produce an error.
     *
-    * @param    string    Name of the variable placeholder, the name must be unique within the template.
+    * @param    string    Name of the variable placeholder, the name must be unique
+    *                     within the template.
     * @param    string    Name of the block to be added
     * @param    string    Content of the block
     * @return   boolean
@@ -236,11 +249,17 @@ class HTML_Template_ITX extends HTML_Template_IT {
         // Don't trust any user even if it's a programmer or yourself...
         if ('' == $placeholder) {
 
-            return new IT_Error('No variable placeholder given.', __FILE__, __LINE__);
+            return new IT_Error('No variable placeholder given.',
+                                __FILE__, __LINE__
+                                );
 
-        } else if ('' == $blockname || !preg_match($this->checkblocknameRegExp, $blockname) ) {
+        } else if ( '' == $blockname ||
+                    !preg_match($this->checkblocknameRegExp, $blockname)
+        ) {
 
-            return new IT_Error("No or invalid blockname '$blockname' given.", __FILE__, __LINE__);
+            return new IT_Error("No or invalid blockname '$blockname' given.",
+                    __FILE__, __LINE__
+                    );
 
         } else if ('' == $template) {
 
@@ -248,7 +267,9 @@ class HTML_Template_ITX extends HTML_Template_IT {
 
         } else if (isset($this->blocklist[$blockname])) {
 
-            return new IT_Error('The block already exists.', __FILE__, __LINE__);
+            return new IT_Error('The block already exists.',
+                                __FILE__, __LINE__
+                            );
 
         }
 
@@ -256,7 +277,11 @@ class HTML_Template_ITX extends HTML_Template_IT {
         $parents = $this->findPlaceholderBlocks($placeholder);
         if (0 == count($parents)) {
 
-            return new IT_Error("The variable placeholder '$placeholder' was not found in the template.", __FILE__, __LINE__);
+            return new IT_Error(
+                "The variable placeholder".
+                " '$placeholder' was not found in the template.",
+                __FILE__, __LINE__
+            );
 
         } else if ( count($parents) > 1 ) {
 
@@ -266,8 +291,10 @@ class HTML_Template_ITX extends HTML_Template_IT {
             }
             $msg = substr($parent, -2);
 
-            return new IT_Error("The variable placeholder '$placeholder' must be unique, found in multiple blocks '$msg'.", __FILE__, __LINE__);
-
+            return new IT_Error("The variable placeholder "."'$placeholder'".
+                                " must be unique, found in multiple blocks '$msg'.",
+                                __FILE__, __LINE__
+                                );
         }
 
         $template = "<!-- BEGIN $blockname -->" . $template . "<!-- END $blockname -->";
@@ -276,28 +303,33 @@ class HTML_Template_ITX extends HTML_Template_IT {
             return false;    // findBlocks() already throws an exception
         }
         $this->blockinner[$parents[0]][] = $blockname;
-        $this->blocklist[$parents[0]] = preg_replace('@' . $this->openingDelimiter . $placeholder . $this->closingDelimiter . '@',
-                                                     $this->openingDelimiter . '__' . $blockname . '__' . $this->closingDelimiter,
-                                                     $this->blocklist[$parents[0]]
-                                                     );
+        $this->blocklist[$parents[0]] = preg_replace(
+                    '@' . $this->openingDelimiter . $placeholder .
+                    $this->closingDelimiter . '@',
+
+                    $this->openingDelimiter . '__' . $blockname . '__' .
+                    $this->closingDelimiter,
+
+                    $this->blocklist[$parents[0]]
+                );
 
         $this->deleteFromBlockvariablelist($parents[0], $placeholder);
         $this->updateBlockvariablelist($blockname);
-        /*
-        // check if any inner blocks were found
-        if(is_array($this->blockinner[$blockname]) and count($this->blockinner[$blockname]) > 0) {
-            // loop through inner blocks, registering the variable placeholders in each
-            foreach($this->blockinner[$blockname] as $childBlock) {
-                $this->updateBlockvariablelist($childBlock);
-            }
+    /*
+    // check if any inner blocks were found
+    if(is_array($this->blockinner[$blockname]) and count($this->blockinner[$blockname]) > 0) {
+        // loop through inner blocks, registering the variable placeholders in each
+        foreach($this->blockinner[$blockname] as $childBlock) {
+            $this->updateBlockvariablelist($childBlock);
         }
-        */
-
+    }
+    */
         return true;
     } // end func addBlock
 
     /**
-    * Adds a block taken from a file to the template changing a variable placeholder to a block placeholder.
+    * Adds a block taken from a file to the template changing a variable
+    * placeholder to a block placeholder.
     *
     * @param      string    Name of the variable placeholder to be converted
     * @param      string    Name of the block to be added
@@ -310,12 +342,16 @@ class HTML_Template_ITX extends HTML_Template_IT {
     } // end func addBlockfile
 
     /**
-    * Returns the name of the (first) block that contains the specified placeholder.
+    * Returns the name of the (first) block that contains
+    * the specified placeholder.
     *
     * @param    string  Name of the placeholder you're searching
-    * @param    string  Name of the block to scan. If left out (default) all blocks are scanned.
-    * @return   string  Name of the (first) block that contains the specified placeholder.
-    *                   If the placeholder was not found or an error occured an empty string is returned.
+    * @param    string  Name of the block to scan. If left out (default)
+    *                   all blocks are scanned.
+    * @return   string  Name of the (first) block that contains
+    *                   the specified placeholder.
+    *                   If the placeholder was not found or an error occured
+    *                   an empty string is returned.
     * @throws   IT_Error
     * @access   public
     */
@@ -353,14 +389,11 @@ class HTML_Template_ITX extends HTML_Template_IT {
             // search all blocks and return the name of the first block that
             // contains the placeholder
             reset($this->blockvariables);
-            while (list($blockname, $variables) = each($this->blockvariables)) {
+            while (list($blockname, $variables) = each($this->blockvariables)){
 
-                reset($variables);
-                while (list($k, $variable) = each($variables)) {
-                    if ($variable == $placeholder) {
-                        $found = $blockname;
-                        break 2;
-                    }
+                if (is_array($variables) && isset($variables[$placeholder])) {
+                    $found = $blockname;
+                    break;
                 }
             }
 
@@ -370,7 +403,8 @@ class HTML_Template_ITX extends HTML_Template_IT {
     } // end func placeholderExists
 
     /**
-    * Checks the list of function calls in the template and calls their callback function.
+    * Checks the list of function calls in the template and
+    * calls their callback function.
     *
     * @access    public
     */
@@ -383,16 +417,19 @@ class HTML_Template_ITX extends HTML_Template_IT {
             if (isset($this->callback[$function['name']])) {
 
                 if ('' != $this->callback[$function['name']]['object']) {
-                    $this->variableCache['__function' . $func_id . '__'] = call_user_func(
-                                                                array(&$GLOBALS[$this->callback[$function['name']]['object']],
-                                                                $this->callback[$function['name']]['function']),
-                                                                $function['args']
-                                                               );
+                    $this->variableCache['__function' . $func_id . '__'] =
+                        call_user_func(
+                        array(
+                        &$GLOBALS[$this->callback[$function['name']]['object']],
+                        $this->callback[$function['name']]['function']),
+                        $function['args']
+                       );
                 } else {
-                    $this->variableCache['__function' . $func_id . '__'] = call_user_func(
-                                                                $this->callback[$function['name']]['function'],
-                                                                $function['args']
-                                                                );
+                    $this->variableCache['__function' . $func_id . '__'] =
+                            call_user_func(
+                            $this->callback[$function['name']]['function'],
+                            $function['args']
+                        );
                 }
 
             }
@@ -467,15 +504,20 @@ class HTML_Template_ITX extends HTML_Template_IT {
     * @throws   IT_Error
     * @access   public
     */
-    function setCallbackFunction($tplfunction, $callbackfunction, $callbackobject = '')
+    function
+    setCallbackFunction($tplfunction, $callbackfunction, $callbackobject = '')
     {
 
         if ('' == $tplfunction || '' == $callbackfunction) {
-            return new IT_Error("No template function ('$tplfunction') and/or no callback function ('$callback') given.", __FILE__, __LINE__);
+            return new IT_Error(
+                "No template function "."('$tplfunction')".
+                " and/or no callback function ('$callback') given.",
+                    __FILE__, __LINE__
+                );
         }
         $this->callback[$tplfunction] = array(
-                                              "function"    => $callbackfunction,
-                                              "object"        => $callbackobject
+                                          "function"    => $callbackfunction,
+                                          "object"        => $callbackobject
                                         );
 
         return true;
@@ -484,7 +526,12 @@ class HTML_Template_ITX extends HTML_Template_IT {
     /**
     * Sets the Callback function lookup table
     *
-    * @param    array    function table - array[templatefunction] = array( "function" => userfunction, "object" => userobject )
+    * @param    array    function table
+    *                    array[templatefunction] =
+    *                       array(
+    *                               "function" => userfunction,
+    *                               "object" => userobject
+    *                       )
     * @access    public
     */
     function setCallbackFuntiontable($functions)
@@ -598,12 +645,17 @@ class HTML_Template_ITX extends HTML_Template_IT {
             $head = $this->getValue($template, ')');
             $args = array();
 
-            $this->template = str_replace($regs[0] . $head . ')', '{__function' . $num . '__}', $this->template);
-            $template = str_replace($regs[0] . $head . ')', '{__function' . $num . '__}', $template);
+            $this->template = str_replace($regs[0] . $head . ')',
+                                '{__function' . $num . '__}', $this->template
+                            );
+            $template = str_replace($regs[0] . $head . ')',
+                        '{__function' . $num . '__}', $template
+                        );
 
             while ('' != $head && $args2 = $this->getValue($head, ',')) {
                 $arg2 = trim($args2);
-                $args[] = ('"' == $arg2{0} || "'" == $arg2{0}) ? substr($arg2, 1, -1) : $arg2;
+                $args[] = ('"' == $arg2{0} || "'" == $arg2{0}) ?
+                                    substr($arg2, 1, -1) : $arg2;
                 if ($arg2 == $head) {
                     break;
                 }
@@ -642,7 +694,11 @@ class HTML_Template_ITX extends HTML_Template_IT {
 
                 $char = $code[$i];
 
-                if (('"' == $char || "'" == $char) && ($char == $enclosed_by || '' == $enclosed_by) && (0 == $i || ($i > 0 && '\\' != $code[$i - 1]))) {
+                if (
+                        ('"' == $char || "'" == $char) &&
+                        ($char == $enclosed_by || '' == $enclosed_by) &&
+                        (0 == $i || ($i > 0 && '\\' != $code[$i - 1]))
+                    ){
 
                     if (!$enclosed) {
                         $enclosed_by = $char;
@@ -667,7 +723,8 @@ class HTML_Template_ITX extends HTML_Template_IT {
     * Deletes one or many variables from the block variable list.
     *
     * @param    string    Blockname
-    * @param    mixed        Name of one variable or array of variables ( array ( name => true ) ) to be stripped.
+    * @param    mixed     Name of one variable or array of variables
+    *                     ( array ( name => true ) ) to be stripped.
     */
     function deleteFromBlockvariablelist($block, $variables)
     {
@@ -690,7 +747,9 @@ class HTML_Template_ITX extends HTML_Template_IT {
     */
     function updateBlockvariablelist($block)
     {
-        preg_match_all( $this->variablesRegExp, $this->blocklist[$block], $regs );
+        preg_match_all( $this->variablesRegExp,
+                        $this->blocklist[$block], $regs
+                    );
 
         if (0 != count($regs[1])) {
             foreach ($regs[1] as $k => $var) {
@@ -701,8 +760,14 @@ class HTML_Template_ITX extends HTML_Template_IT {
         }
 
         // check if any inner blocks were found
-        if (isset($this->blockinner[$block]) and is_array($this->blockinner[$block]) and count($this->blockinner[$block]) > 0) {
-            // loop through inner blocks, registering the variable placeholders in each
+        if (isset($this->blockinner[$block]) &&
+            is_array($this->blockinner[$block]) &&
+            count($this->blockinner[$block]) > 0
+        ) {
+            /*
+             * loop through inner blocks, registering the variable
+             * placeholders in each
+             */
             foreach($this->blockinner[$block] as $childBlock) {
                 $this->updateBlockvariablelist($childBlock);
             }
@@ -711,7 +776,8 @@ class HTML_Template_ITX extends HTML_Template_IT {
     } // end func updateBlockvariablelist
 
     /**
-    * Returns an array of blocknames where the given variable placeholder is used.
+    * Returns an array of blocknames where the given variable
+    * placeholder is used.
     *
     * @param    string    Variable placeholder
     * @return    array    $parents    parents[0..n] = blockname
@@ -722,7 +788,9 @@ class HTML_Template_ITX extends HTML_Template_IT {
         reset($this->blocklist);
         while (list($blockname, $content) = each($this->blocklist)) {
             reset($this->blockvariables[$blockname]);
-            while (list($varname, $val) = each($this->blockvariables[$blockname])) {
+            while (
+                list($varname, $val) = each($this->blockvariables[$blockname]))
+            {
                 if ($variable == $varname) {
                     $parents[] = $blockname;
                 }
@@ -733,7 +801,9 @@ class HTML_Template_ITX extends HTML_Template_IT {
     } // end func findPlaceholderBlocks
 
     /**
-    * Handles warnings, saves them to $warn and prints them or calls die() depending on the flags
+    * Handles warnings, saves them to $warn and prints them or
+    * calls die() depending on the flags
+    *
     * @param    string    Warning
     * @param    string    File where the warning occured
     * @param    int       Linenumber where the warning occured
@@ -741,10 +811,12 @@ class HTML_Template_ITX extends HTML_Template_IT {
     */
     function warning($message, $file = '', $line = 0)
     {
-        $message = sprintf('HTML_Template_ITX Warning: %s [File: %s, Line: %d]',
-                                $message,
-                                $file,
-                                $line );
+        $message = sprintf(
+                    'HTML_Template_ITX Warning: %s [File: %s, Line: %d]',
+                    $message,
+                    $file,
+                    $line
+                );
 
         $this->warn[] = $message;
 

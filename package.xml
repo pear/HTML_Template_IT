@@ -45,17 +45,46 @@ you to modify some parts of your layout easily.
   </maintainers>
   <license>PHP License</license>
   <release>
-    <version>1.0</version>
+    <version>1.1</version>
     <state>stable</state>
-    <date>2002-09-13</date>
+    <date>2003-03-11</date>
     <notes>
-      Stable release.
+      *BETA* release.
+- Added str_replace optionnal parsing (fixes problems 
+  with regular expression like '$' symbols) (Alexey, pajoye)
+- Added preserve_data to substitute/preserve variables inside
+  in datas already passed through setVariable (Alexey)
+A special thank to Alexey Borzov to provide a patch for his fixes
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML/Template">
         <file role="php" name="IT.php"/>
         <file role="php" name="ITX.php"/>
         <file role="php" name="IT_Error.php"/>
+        <dir name="tests" role="test">
+          <dir name="templates">
+            <file name="addblock.html"/>
+            <file name="blockiteration.html"/>
+            <file name="blocks.html"/>
+            <file name="globals.html"/>
+            <file name="__include.html"/>
+            <file name="include.html"/>
+            <file name="loadtemplatefile.html"/>
+            <file name="replaceblock.html"/>
+          </dir>
+		  <file name="Console_TestListener.php"/>
+          <file name="IT_api_testcase.php"/>
+          <file name="IT_usage_testcase.php"/>
+          <file name="ITX_api_testcase.php"/>
+          <file name="ITX_usage_testcase.php"/>
+          <file name="test.php"/>
+        </dir>
+        <dir name="examples" role="doc">
+          <file name="sample_it.php"/>
+          <dir name="templates">
+            <file name="main.tpl.htm"/>
+          </dir>
+        </dir>
       </dir>
     </filelist>
   </release>
