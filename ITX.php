@@ -19,7 +19,7 @@
 // $Id$
 //
 
-require_once('HTML/IT.php');
+require_once('HTML/Template/IT.php');
 
 /**
 * Integrated Template Extension - ITX

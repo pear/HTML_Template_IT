@@ -19,7 +19,7 @@
 // $Id$
 //
 
-require_once('HTML/IT_Error.php');
+require_once('HTML/Template/IT_Error.php');
 
 /**
 * Integrated Template - IT
