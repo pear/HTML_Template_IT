@@ -586,13 +586,14 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
             $this->template = str_replace($regs[0] . $head . ')', '{__function' . $num . '__}', $this->template);
             $template = str_replace($regs[0] . $head . ')', '{__function' . $num . '__}', $template);
             
-            while ('' != $head && $arg = $this->getValue($head, ',')) {
+            while ('' != $head && $args2 = $this->getValue($head, ',')) {
                 $arg2 = trim($args2);
                 $args[] = ('"' == $arg2{0} || "'" == $arg2{0}) ? substr($arg2, 1, -1) : $arg2;
-                if ($arg == $head)                                     
+                if ($arg2 == $head) {
                     break;
-                $head = substr($head, strlen($arg) + 1);
-            }    
+                }
+                $head = substr($head, strlen($arg2) + 1);
+            }
 
             $this->functions[$num++] = array( 
                                                 'name'    => $regs[1],
