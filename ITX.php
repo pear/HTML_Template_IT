@@ -114,8 +114,9 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     *
     * @see    IntegratedTemplate()
     */
-    function IntegratedTemplateExtension($root = '') {
-    
+    function IntegratedTemplateExtension($root = '')
+    {
+
         $this->checkblocknameRegExp = '@' . $this->blocknameRegExp . '@';
         $this->functionRegExp = '@' . $this->functionPrefix . '(' . $this->functionnameRegExp . ')\s*\(@sm';
         
@@ -123,8 +124,9 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
                                                                                             
     } // end func constructor
     
-    function init() {
-    
+    function init()
+    {
+
         $this->free();
         $this->buildFunctionlist();
         $this->findBlocks($this->template);
@@ -157,15 +159,17 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     * @see      replaceBlockfile(), addBlock(), addBlockfile()
     * @access   public
     */
-    function replaceBlock($block, $template, $keep_content = false) {
-        if (!isset($this->blocklist[$block]))
+    function replaceBlock($block, $template, $keep_content = false)
+    {
+        if (!isset($this->blocklist[$block])) {
             return new IT_Error("The block '$block' does not exist in the template and thus it can't be replaced.", __FILE__, __LINE__);
-        if ('' == $template)
+        }        
+        if ('' == $template) {
             return new IT_Error('No block content given.', __FILE__, __LINE__);
-        
-        if ($keep_content)
+        }
+        if ($keep_content) {
             $blockdata = $this->blockdata[$block];
-
+        }
 
         // remove all kinds of links to the block / data of the block
         $this->removeBlockData($block);            
@@ -177,10 +181,11 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
 
         // KLUDGE: rebuild the list for all block - could be done faster        
         $this->buildBlockvariablelist();
-        
-        if ($keep_content)
+
+        if ($keep_content) {
             $this->blockdata[$block] = $blockdata;
-            
+        }
+
         // old TODO - I'm not sure if we need this
         // update caches
         
@@ -194,7 +199,8 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     * @param    string    Name of the file that contains the blockcontent
     * @param    boolean   true if the new block inherits the content of the old block
     */
-    function replaceBlockfile($block, $filename, $keep_content = false) {
+    function replaceBlockfile($block, $filename, $keep_content = false)
+    {
         return $this->replaceBlock($block, $this->getFile($filename));
     } // end func replaceBlockfile
     
@@ -225,7 +231,8 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     * @see      addBlockfile()
     * @access   public
     */    
-    function addBlock($placeholder, $blockname, $template) {
+    function addBlock($placeholder, $blockname, $template)
+    {
 
         // Don't trust any user even if it's a programmer or yourself...
         if ('' == $placeholder) {
@@ -255,19 +262,20 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
         } else if ( count($parents) > 1 ) {
             
             reset($parents);
-            while (list($k, $parent) = each($parents)) 
+            while (list($k, $parent) = each($parents)) {
                 $msg .= "$parent, ";
+            }
             $msg = substr($parent, -2);
-            
+
             return new IT_Error("The variable placeholder '$placeholder' must be unique, found in multiple blocks '$msg'.", __FILE__, __LINE__);
-                        
+
         }
-        
+
         $template = "<!-- BEGIN $blockname -->" . $template . "<!-- END $blockname -->";
         $this->findBlocks($template);
-        if ($this->flagBlocktrouble) 
+        if ($this->flagBlocktrouble) {
             return false;    // findBlocks() already throws an exception
-      
+        }
         $this->blockinner[$parents[0]][] = $blockname;
         $this->blocklist[$parents[0]] = preg_replace('@' . $this->openingDelimiter . $placeholder . $this->closingDelimiter . '@', 
                                                      $this->openingDelimiter . '__' . $blockname . '__' . $this->closingDelimiter, 
@@ -297,7 +305,8 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     * @param      string    File that contains the block
     * @brother    addBlock()
     */
-    function addBlockfile($placeholder, $blockname, $filename) {
+    function addBlockfile($placeholder, $blockname, $filename)
+    {
         return $this->addBlock($placeholder, $blockname, $this->getFile($filename));
     } // end func addBlockfile
     
@@ -311,8 +320,8 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     * @throws   IT_Error
     * @access   public
     */
-    function placeholderExists($placeholder, $block = '') {
-        
+    function placeholderExists($placeholder, $block = '')
+    {
         if ('' == $placeholder) {
             new IT_Error('No placeholder name given.', __FILE__, __LINE__);
             return '';
@@ -332,32 +341,32 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
             
                 // search the value in the list of blockvariables
                 reset($variables);
-                while (list($k, $variable) = each($variables)) 
+                while (list($k, $variable) = each($variables)) {
                     if ($variable == $placeholder) {
                         $found = $block;
                         break;
                     }
-                        
+                }
             }
-                        
+
         } else {
-        
+
             // search all blocks and return the name of the first block that 
             // contains the placeholder
             reset($this->blockvariables);
             while (list($blockname, $variables) = each($this->blockvariables)) {
 
                 reset($variables);
-                while (list($k, $variable) = each($variables)) 
+                while (list($k, $variable) = each($variables)) {
                     if ($variable == $placeholder) {
                         $found = $blockname;
                         break 2;
                     }
-
+                }
             }
-            
+
         }
-        
+
         return $found;
     } // end func placeholderExists
     
@@ -366,8 +375,9 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     *
     * @access    public
     */
-    function performCallback() {
-    
+    function performCallback()
+    {
+
         reset($this->functions);
         while (list($func_id, $function) = each($this->functions)) {
             
@@ -398,10 +408,9 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     * @return   array
     * @access   public
     */
-    function getFunctioncalls() {
-        
-        return $this->functions;
-        
+    function getFunctioncalls()
+    {
+        return $this->functions;       
     } // end func getFunctioncalls
     
     /**
@@ -411,10 +420,9 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     * @param    string    Replacement
     * @deprec
     */
-    function setFunctioncontent($functionID, $replacement) {
-        
-        $this->variableCache['__function' . $functionID . '__'] = $replacement;
-        
+    function setFunctioncontent($functionID, $replacement)
+    {
+        $this->variableCache['__function' . $functionID . '__'] = $replacement;        
     } // end func setFunctioncontent
     
     /**
@@ -460,11 +468,12 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     * @throws   IT_Error
     * @access   public
     */
-    function setCallbackFunction($tplfunction, $callbackfunction, $callbackobject = '') {
-        
-        if ('' == $tplfunction || '' == $callbackfunction)
+    function setCallbackFunction($tplfunction, $callbackfunction, $callbackobject = '')
+    {
+
+        if ('' == $tplfunction || '' == $callbackfunction) {
             return new IT_Error("No template function ('$tplfunction') and/or no callback function ('$callback') given.", __FILE__, __LINE__);
-        
+        }
         $this->callback[$tplfunction] = array(
                                               "function"    => $callbackfunction,
                                               "object"        => $callbackobject
@@ -479,7 +488,8 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     * @param    array    function table - array[templatefunction] = array( "function" => userfunction, "object" => userobject )
     * @access    public
     */
-    function setCallbackFuntiontable($functions) {
+    function setCallbackFuntiontable($functions)
+    {
         $this->callback = $functions;
     } // end func setCallbackFunctiontable
     
@@ -488,20 +498,21 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     *
     * @param    string  block to be removed
     */
-    function removeBlockData($block) {
-        
+    function removeBlockData($block)
+    {        
         if (isset($this->blockinner[$block])) {
-            foreach ($this->blockinner[$block] as $k => $inner) 
+            foreach ($this->blockinner[$block] as $k => $inner) {
                 $this->removeBlockData($inner);
-                
+            }
+
             unset($this->blockinner[$block]);
-        }    
-        
+        }
+
         unset($this->blocklist[$block]);
         unset($this->blockdata[$block]);
         unset($this->blockvariables[$block]);
         unset($this->touchedBlocks[$block]);
-        
+
     } // end func removeBlockinner
     
     /**
@@ -511,12 +522,13 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     * @access    public
     * @see        blockExists()
     */
-    function getBlocklist() {
-    
+    function getBlocklist()
+    {
         $blocklist = array();
-        foreach ($this->blocklist as $block => $content) 
+        foreach ($this->blocklist as $block => $content) {
             $blocklist[$block] = $block;
-            
+        }
+
         return $blocklist;
     } // end func getBlocklist
 
@@ -528,7 +540,8 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     * @access    public
     * @see        getBlocklist()
     */
-    function blockExists($blockname) {
+    function blockExists($blockname)
+    {
         return isset($this->blocklist[$blockname]);
     } // end func blockExists
     
@@ -540,10 +553,12 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     * @access    public
     * @see        BlockvariableExists()
     */
-    function getBlockvariables($block) {
-        if (!isset($this->blockvariables[$block]))
+    function getBlockvariables($block)
+    {
+        if (!isset($this->blockvariables[$block])) {
             return array();
-            
+        }
+
         $variables = array();
         foreach ($this->blockvariables[$block] as $variable => $v) {
             $variables[$variable] = $variable;
@@ -561,31 +576,32 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     * @access    public
     * @see    getBlockvariables()
     */
-    function BlockvariableExists($block, $variable) {
+    function BlockvariableExists($block, $variable)
+    {
         return isset($this->blockvariables[$block][$variable]);
     } // end func BlockvariableExists
-    
+
     /**
     * Builds a functionlist from the template.
     */
-    function buildFunctionlist() {
-        
+    function buildFunctionlist()
+    {
         $this->functions = array();
         
         $template = $this->template;
         $num = 0;
         
-        while (preg_match($this->functionRegExp, $template, $regs))    {
-        
+        while (preg_match($this->functionRegExp, $template, $regs)) {
+
             $pos = strpos($template, $regs[0]);
             $template = substr($template, $pos + strlen($regs[0]));
-            
+
             $head = $this->getValue($template, ')');
             $args = array();
-            
+
             $this->template = str_replace($regs[0] . $head . ')', '{__function' . $num . '__}', $this->template);
             $template = str_replace($regs[0] . $head . ')', '{__function' . $num . '__}', $template);
-            
+
             while ('' != $head && $args2 = $this->getValue($head, ',')) {
                 $arg2 = trim($args2);
                 $args[] = ('"' == $arg2{0} || "'" == $arg2{0}) ? substr($arg2, 1, -1) : $arg2;
@@ -598,22 +614,24 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
             $this->functions[$num++] = array( 
                                                 'name'    => $regs[1],
                                                 'args'    => $args
-                                            );            
+                                            );
         }
 
     } // end func buildFunctionlist
     
     
     function getValue($code, $delimiter) {
-        if ('' == $code)
+        if ('' == $code) {
             return '';
-    
-        if (!is_array($delimiter)) 
+        }
+
+        if (!is_array($delimiter)) {
             $delimiter = array( $delimiter => true );
-            
-        $len            = strlen($code);
-        $enclosed       = false;
-        $enclosed_by    = '';
+        }
+
+        $len         = strlen($code);
+        $enclosed    = false;
+        $enclosed_by = '';
         
         if (isset($delimiter[$code[0]])) {
         
@@ -627,17 +645,17 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
 
                 if (('"' == $char || "'" == $char) && ($char == $enclosed_by || '' == $enclosed_by) && (0 == $i || ($i > 0 && '\\' != $code[$i - 1]))) {
                 
-                    if (!$enclosed)
+                    if (!$enclosed) {
                         $enclosed_by = $char;
-                    else 
+                    } else {
                         $enclosed_by = "";
-                        
+                    }
                     $enclosed = !$enclosed;
-                    
+
                 }
-                if (!$enclosed && isset($delimiter[$char]))
-                    break;                    
-                    
+                if (!$enclosed && isset($delimiter[$char])) {
+                    break;
+                }
             }
         
         }
@@ -652,16 +670,18 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     * @param    string    Blockname
     * @param    mixed        Name of one variable or array of variables ( array ( name => true ) ) to be stripped.
     */
-    function deleteFromBlockvariablelist($block, $variables) {
-    
-        if (!is_array($variables))
+    function deleteFromBlockvariablelist($block, $variables)
+    {    
+        if (!is_array($variables)) {
             $variables = array($variables => true);
-            
+        }
+
         reset($this->blockvariables[$block]);
-        while (list($varname, $val) = each($this->blockvariables[$block])) 
-            if (isset($variables[$varname])) 
+        while (list($varname, $val) = each($this->blockvariables[$block])) {
+            if (isset($variables[$varname])) {
                 unset($this->blockvariables[$block][$varname]);
-        
+            }
+        }
     } // end deleteFromBlockvariablelist
 
     /**
@@ -669,8 +689,8 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     *
     * @param    string    Blockname
     */    
-    function updateBlockvariablelist($block) {
-
+    function updateBlockvariablelist($block)
+    {
         preg_match_all( $this->variablesRegExp, $this->blocklist[$block], $regs );
 
         if (0 != count($regs[1])) {
@@ -697,7 +717,8 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     * @param    string    Variable placeholder
     * @return    array    $parents    parents[0..n] = blockname
     */
-    function findPlaceholderBlocks($variable) {
+    function findPlaceholderBlocks($variable)
+    {
         $parents = array();
         reset($this->blocklist);
         while (list($blockname, $content) = each($this->blocklist)) {
@@ -719,8 +740,8 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
     * @param    int       Linenumber where the warning occured
     * @see      $warn, $printWarning, $haltOnWarning
     */
-    function warning($message, $file = '', $line = 0) {
-        
+    function warning($message, $file = '', $line = 0)
+    {
         $message = sprintf('IntegratedTemplateExtension Warning: %s [File: %s, Line: %d]',
                                 $message,
                                 $file, 
@@ -728,12 +749,13 @@ class IntegratedTemplateExtension extends IntegratedTemplate {
 
         $this->warn[] = $message;
         
-        if ($this->printWarning)
+        if ($this->printWarning) {
             print $message;
-            
-        if ($this->haltOnError) 
+        }
+
+        if ($this->haltOnError) {
             die($message);
-        
+        }
     } // end func warning
     
 } // end class IntegratedTemplateExtension
