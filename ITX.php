@@ -383,9 +383,9 @@ class HTML_Template_ITX extends HTML_Template_IT {
             if (isset($this->callback[$function['name']])) {
 
                 if ('' != $this->callback[$function['name']]['object']) {
-                    $this->variableCache['__function' . $func_id . '__'] = call_user_method(
-                                                                $this->callback[$function['name']]['function'],
-                                                                $GLOBALS[$this->callback[$function['name']]['object']],
+                    $this->variableCache['__function' . $func_id . '__'] = call_user_func(
+                                                                array(&$GLOBALS[$this->callback[$function['name']]['object']],
+                                                                $this->callback[$function['name']]['function']),
                                                                 $function['args']
                                                                );
                 } else {
