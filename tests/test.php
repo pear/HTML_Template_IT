@@ -1,5 +1,4 @@
 <?php
-apd_set_session_trace(9);
 $testcases = array(
     'ITX_api_testcase',
     'ITX_usage_testcase'
