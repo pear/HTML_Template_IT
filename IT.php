@@ -787,7 +787,7 @@ class HTML_Template_IT {
         if (!$this->flagCacheTemplatefile ||
             $this->lastTemplatefile != $filename
         ){
-            $template = $this->getfile($filename);
+            $template = $this->getFile($filename);
         }
         $this->lastTemplatefile = $filename;
 
@@ -1004,7 +1004,7 @@ class HTML_Template_IT {
                 IT_BLOCK_NOT_FOUND          => 'Cannot find this block',
                 IT_BLOCK_DUPLICATE          => 'The name of a block must be'.
                                                ' uniquewithin a template.'.
-                                               ' Found "$blockname" twice.'.
+                                               ' Found "' . $blockname . '" twice.'.
                                                'Unpredictable results '.
                                                'may appear.',
                 IT_UNKNOWN_OPTION           => 'Unknown option'
