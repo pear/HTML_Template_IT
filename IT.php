@@ -405,6 +405,7 @@ class HTML_Template_IT {
                 $this->errorMessage(IT_UNKNOWN_OPTION) . ": '{$option}'",
                 IT_UNKNOWN_OPTION
             );
+        return IT_OK;
     }
 
     /**
