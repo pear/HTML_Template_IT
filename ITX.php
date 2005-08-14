@@ -824,7 +824,7 @@ class HTML_Template_ITX extends HTML_Template_IT {
             print $message;
         }
 
-        if ($this->haltOnError) {
+        if ($this->haltOnWarning) {
             die($message);
         }
     } // end func warning
