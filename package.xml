@@ -45,16 +45,13 @@ you to modify some parts of your layout easily.
   </maintainers>
   <license>PHP License</license>
   <release>
-    <version>1.1</version>
+    <version>1.1.1</version>
     <state>stable</state>
-    <date>2003-03-11</date>
+    <date>2003-08-14</date>
     <notes>
-      *BETA* release.
-- Added str_replace optionnal parsing (fixes problems 
-  with regular expression like '$' symbols) (Alexey, pajoye)
-- Added preserve_data to substitute/preserve variables inside
-  in datas already passed through setVariable (Alexey)
-A special thank to Alexey Borzov to provide a patch for his fixes
+- #4590, case sensitive method name getFile fix
+- #1453, haltOnWarning fix, wrong property name called
+- #3952, return IT_OK on success in setOptions
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML/Template">
@@ -88,4 +85,19 @@ A special thank to Alexey Borzov to provide a patch for his fixes
       </dir>
     </filelist>
   </release>
+  <changelog>
+  <release>
+    <version>1.1</version>
+    <state>stable</state>
+    <date>2003-03-11</date>
+    <notes>
+      *BETA* release.
+- Added str_replace optionnal parsing (fixes problems 
+  with regular expression like '$' symbols) (Alexey, pajoye)
+- Added preserve_data to substitute/preserve variables inside
+  in datas already passed through setVariable (Alexey)
+A special thank to Alexey Borzov to provide a patch for his fixes
+    </notes>
+
+  </changelog>
 </package>
