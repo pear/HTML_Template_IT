@@ -32,7 +32,7 @@ you to modify some parts of your layout easily.
   <maintainers>
     <maintainer>
       <user>uw</user>
-      <role>lead</role>
+      <role>developer</role>
       <name>Ulf Wendel</name>
       <email>ulf.wendel@phpdoc.de</email>
     </maintainer>
@@ -47,11 +47,11 @@ you to modify some parts of your layout easily.
   <release>
     <version>1.1.1</version>
     <state>stable</state>
-    <date>2003-08-14</date>
+    <date>2003-08-21</date>
     <notes>
-- #4590, case sensitive method name getFile fix
-- #1453, haltOnWarning fix, wrong property name called
-- #3952, return IT_OK on success in setOptions
+- fix #4590, case sensitive method name getFile fix
+- fix #1453, haltOnWarning fix, wrong property name called
+- fix #3952, return IT_OK on success in setOptions
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML/Template">
