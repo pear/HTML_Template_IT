@@ -98,6 +98,6 @@ you to modify some parts of your layout easily.
   in datas already passed through setVariable (Alexey)
 A special thank to Alexey Borzov to provide a patch for his fixes
     </notes>
-
+  </release>
   </changelog>
 </package>
