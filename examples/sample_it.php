@@ -1,27 +1,26 @@
 <?php
-require_once "HTML/Template/IT.php";
+require_once 'HTML/Template/IT.php';
 
 $data = array (
-    "0" => array("Stig", "Bakken"),
-    "1" => array("Martin", "Jansen"),
-    "2" => array("Alexander", "Merz")
+    '0' => array('Stig', 'Bakken'),
+    '1' => array('Martin', 'Jansen'),
+    '2' => array('Alexander', 'Merz')
 );
 
-$tpl = new HTML_Template_IT("./templates");
+$tpl = new HTML_Template_IT('./templates');
+$tpl->loadTemplatefile('main.tpl.htm', true, true);
 
-$tpl->loadTemplatefile("main.tpl.htm", true, true);
-
-foreach($data as $name) {
-    foreach($name as $cell) {
+foreach ($data as $name) {
+    foreach ($name as $cell) {
         // Assign data to the inner block
-        $tpl->setCurrentBlock("cell") ;
-        $tpl->setVariable("DATA", $cell) ;
-        $tpl->parseCurrentBlock("cell") ;
+        $tpl->setCurrentBlock('cell');
+        $tpl->setVariable('DATA', $cell);
+        $tpl->parseCurrentBlock();
     }
     // Assign data and the inner block to the
     // outer block
-    $tpl->setCurrentBlock("row") ;
-    $tpl->parseCurrentBlock("row") ;
+    $tpl->setCurrentBlock('row');
+    $tpl->parseCurrentBlock();
 }
 // print the output
 $tpl->show();
