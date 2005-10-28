@@ -247,7 +247,6 @@ class HTML_Template_ITX extends HTML_Template_IT {
     */
     function addBlock($placeholder, $blockname, $template)
     {
-
         // Don't trust any user even if it's a programmer or yourself...
         if ($placeholder == '') {
             return new IT_Error('No variable placeholder given.',
@@ -399,7 +398,6 @@ class HTML_Template_ITX extends HTML_Template_IT {
     */
     function performCallback()
     {
-
         reset($this->functions);
         while (list($func_id, $function) = each($this->functions)) {
             if (isset($this->callback[$function['name']])) {
@@ -492,7 +490,6 @@ class HTML_Template_ITX extends HTML_Template_IT {
     function
     setCallbackFunction($tplfunction, $callbackfunction, $callbackobject = '')
     {
-
         if ($tplfunction == '' || $callbackfunction == '') {
             return new IT_Error(
                 "No template function "."('$tplfunction')".
@@ -655,7 +652,6 @@ class HTML_Template_ITX extends HTML_Template_IT {
 
     } // end func buildFunctionlist
 
-
     function getValue($code, $delimiter) {
         if ($code == '') {
             return '';
@@ -673,7 +669,6 @@ class HTML_Template_ITX extends HTML_Template_IT {
             $i = 1;
         } else {
             for ($i = 0; $i < $len; ++$i) {
-
                 $char = $code[$i];
 
                 if (
@@ -695,12 +690,10 @@ class HTML_Template_ITX extends HTML_Template_IT {
                     break;
                 }
             }
-
         }
 
         return substr($code, 0, $i);
     } // end func getValue
-
 
     /**
     * Deletes one or many variables from the block variable list.
@@ -755,7 +748,6 @@ class HTML_Template_ITX extends HTML_Template_IT {
                 $this->updateBlockvariablelist($childBlock);
             }
         }
-
     } // end func updateBlockvariablelist
 
     /**
