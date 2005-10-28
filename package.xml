@@ -50,10 +50,10 @@ you to modify some parts of your layout easily.
     <state>stable</state>
     <date>2005-10-28</date>
     <notes>
-- Comply better with the coding standards (helgi@php.net)
+- Comply better with the coding standards (helgi[at]php.net)
 - Fixed Bug #5774 ITX->buildFunctionlist, forced to use {} as delimiters
-  instead of the user defined once  (helgi@php.net)
-- Fixed Bug #5642   Undefined variable: blockname (helgi@php.net)
+  instead of the user defined once  (helgi[at]php.net)
+- Fixed Bug #5642   Undefined variable: blockname (helgi[at]php.net)
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML/Template">
@@ -97,6 +97,7 @@ you to modify some parts of your layout easily.
 - fix #1453, haltOnWarning fix, wrong property name called
 - fix #3952, return IT_OK on success in setOptions
     </notes>
+  </release>
   <release>
     <version>1.1</version>
     <state>stable</state>
