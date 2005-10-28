@@ -51,6 +51,7 @@ you to modify some parts of your layout easily.
     <notes>
 - Comply better with the coding standards
 - Fixed Bug #5774 ITX->buildFunctionlist, forced to use {} as delimiters instead of the user defined once
+- Fixed Bug #5642   Undefined variable: blockname
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML/Template">

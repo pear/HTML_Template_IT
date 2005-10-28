@@ -39,8 +39,8 @@ require_once 'HTML/Template/IT_Error.php';
 * @version  $Id$
 * @package  IT[X]
 */
-class HTML_Template_ITX extends HTML_Template_IT {
-
+class HTML_Template_ITX extends HTML_Template_IT
+{
     /**
     * Array with all warnings.
     * @var    array

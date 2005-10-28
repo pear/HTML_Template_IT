@@ -122,8 +122,8 @@ define('IT_UNKNOWN_OPTION',            -6);
  * @access   public
  * @package  HTML_Template_IT
  */
-class HTML_Template_IT {
-
+class HTML_Template_IT
+{
     /**
      * Contains the error objects
      * @var      array
@@ -859,8 +859,7 @@ class HTML_Template_IT {
                 if (isset($this->blocklist[$blockname])) {
                     $this->err[] = PEAR::raiseError(
                                             $this->errorMessage(
-                                            IT_BLOCK_DUPLICATE ) . '"' .
-                                            $blockname . "'",
+                                            IT_BLOCK_DUPLICATE, $blockname),
                                             IT_BLOCK_DUPLICATE
                                     );
                     $this->flagBlocktrouble = true;
@@ -963,7 +962,7 @@ class HTML_Template_IT {
      * @return string error message, or false if the error code was
      * not recognized
      */
-    function errorMessage($value)
+    function errorMessage($value, $blockname = '')
     {
         static $errorMessages;
         if (!isset($errorMessages)) {
