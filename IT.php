@@ -19,13 +19,13 @@
 // $Id$
 //
 
-require_once('PEAR.php');
+require_once 'PEAR.php';
 
-define("IT_OK",                         1);
-define("IT_ERROR",                     -1);
-define("IT_TPL_NOT_FOUND",             -2);
-define("IT_BLOCK_NOT_FOUND",           -3);
-define("IT_BLOCK_DUPLICATE",           -4);
+define('IT_OK',                         1);
+define('IT_ERROR',                     -1);
+define('IT_TPL_NOT_FOUND',             -2);
+define('IT_BLOCK_NOT_FOUND',           -3);
+define('IT_BLOCK_DUPLICATE',           -4);
 define('IT_UNKNOWN_OPTION',            -6);
 /**
  * Integrated Template - IT
@@ -180,13 +180,13 @@ class HTML_Template_IT {
      * @access   public
      * @see      IntegratedTemplate()
      */
-    var $variablesRegExp = "";
+    var $variablesRegExp = '';
 
     /**
      * RegExp used to strip unused variable placeholder.
      * @brother  $variablesRegExp
      */
-    var $removeVariablesRegExp = "";
+    var $removeVariablesRegExp = '';
 
     /**
      * Controls the handling of unknown variables, default is remove.
@@ -207,7 +207,7 @@ class HTML_Template_IT {
      * @var      string
      * @see      IntegratedTemplate()
      */
-    var $blockRegExp = "";
+    var $blockRegExp = '';
 
     /**
      * Name of the current block.
@@ -219,7 +219,7 @@ class HTML_Template_IT {
      * Content of the template.
      * @var      string
      */
-    var $template = "";
+    var $template = '';
 
     /**
      * Array of all blocks and their content.
@@ -246,7 +246,7 @@ class HTML_Template_IT {
      * Array of inner blocks of a block.
      * @var      array
      */
-    var $blockinner         = array();
+    var $blockinner = array();
 
     /**
      * List of blocks to preverse even if they are "empty".
@@ -311,7 +311,7 @@ class HTML_Template_IT {
      * @var    string
      * @see    HTML_Template_IT(), setRoot()
      */
-    var $fileRoot = "";
+    var $fileRoot = '';
 
     /**
      * Internal flag indicating that a blockname was used multiple times.
@@ -342,7 +342,7 @@ class HTML_Template_IT {
     /**
      * EXPERIMENTAL! FIXME!
      */
-    var $lastTemplatefile = "";
+    var $lastTemplatefile = '';
 
     /**
      * $_options['preserve_data'] Whether to substitute variables and remove
@@ -369,8 +369,9 @@ class HTML_Template_IT {
      *                     given to the object.
      * @see      setRoot()
      */
-    function HTML_Template_IT($root = "", $options=null) {
-        if(!is_null($options)){
+    function HTML_Template_IT($root = '', $options = null)
+    {
+        if (!is_null($options)) {
             $this->setOptions($options);
         }
         $this->variablesRegExp = "@" . $this->openingDelimiter .
@@ -401,6 +402,7 @@ class HTML_Template_IT {
             $this->_options[$option] = $value;
             return IT_OK;
         }
+
         return PEAR::raiseError(
                 $this->errorMessage(IT_UNKNOWN_OPTION) . ": '{$option}'",
                 IT_UNKNOWN_OPTION
@@ -421,11 +423,13 @@ class HTML_Template_IT {
      */
     function setOptions($options)
     {
-        foreach($options as $option=>$value){
-            if( PEAR::isError($error=$this->setOption($option, $value)) ){
+        foreach ($options as $option => $value){
+            $error = $this->setOption($option, $value);
+            if (PEAR::isError($error)) {
                 return $error;
             }
         }
+
         return IT_OK;
     }
 
@@ -433,7 +437,8 @@ class HTML_Template_IT {
      * Print a certain block with all replacements done.
      * @brother get()
      */
-    function show($block = "__global__") {
+    function show($block = "__global__")
+    {
         print $this->get($block);
     } // end func show
 
@@ -446,10 +451,12 @@ class HTML_Template_IT {
      * @access   public
      * @see      show()
      */
-    function get($block = "__global__") {
+    function get($block = "__global__")
+    {
 
-        if ("__global__" == $block && !$this->flagGlobalParsed)
+        if ($block == "__global__"  && !$this->flagGlobalParsed) {
             $this->parse("__global__");
+        }
 
         if (!isset($this->blocklist[$block])) {
             $this->err[] = PEAR::raiseError(
@@ -457,13 +464,10 @@ class HTML_Template_IT {
                             '"' . $block . "'",
                             IT_BLOCK_NOT_FOUND
                         );
-            return "";
+            return '';
         }
 
-        if (!isset($this->blockdata[$block])) {
-            return '';
-
-        } else {
+        if (isset($this->blockdata[$block])) {
             $ret = $this->blockdata[$block];
             if ($this->clearCache) {
                 unset($this->blockdata[$block]);
@@ -478,6 +482,8 @@ class HTML_Template_IT {
             }
             return $ret;
         }
+
+        return '';
     } // end func get()
 
     /**
@@ -499,7 +505,7 @@ class HTML_Template_IT {
                 );
         }
 
-        if ("__global__" == $block) {
+        if ($block == "__global__") {
             $this->flagGlobalParsed = true;
         }
 
@@ -511,7 +517,6 @@ class HTML_Template_IT {
         $empty = true;
 
         if ($this->clearCacheOnParse) {
-
             foreach ($this->variableCache as $name => $value) {
                 $regs[] = $this->openingDelimiter .
                           $name . $this->closingDelimiter;
@@ -519,9 +524,7 @@ class HTML_Template_IT {
                 $empty = false;
             }
             $this->variableCache = array();
-
         } else {
-
             foreach ($this->blockvariables[$block] as $allowedvar => $v) {
 
                 if (isset($this->variableCache[$allowedvar])) {
@@ -531,17 +534,14 @@ class HTML_Template_IT {
                    unset($this->variableCache[$allowedvar]);
                    $empty = false;
                 }
-
             }
-
         }
 
         if (isset($this->blockinner[$block])) {
-
             foreach ($this->blockinner[$block] as $k => $innerblock) {
 
                 $this->parse($innerblock, true);
-                if ("" != $this->blockdata[$innerblock]) {
+                if ($this->blockdata[$innerblock] != '') {
                     $empty = false;
                 }
 
@@ -607,7 +607,8 @@ class HTML_Template_IT {
      * @see      parse(), setCurrentBlock(), $currentBlock
      * @access   public
      */
-    function parseCurrentBlock() {
+    function parseCurrentBlock()
+    {
         return $this->parse($this->currentBlock);
     } // end func parseCurrentBlock
 
@@ -625,20 +626,15 @@ class HTML_Template_IT {
      * @param    string    prefix for variable names
      * @access   public
      */
-    function setVariable($variable, $value = "") {
-
+    function setVariable($variable, $value = '')
+    {
         if (is_array($variable)) {
-
             $this->variableCache = array_merge(
                                             $this->variableCache, $variable
                                     );
-
         } else {
-
             $this->variableCache[$variable] = $value;
-
         }
-
     } // end func setVariable
 
     /**
@@ -650,7 +646,8 @@ class HTML_Template_IT {
      * @throws   PEAR_Error
      * @access   public
      */
-    function setCurrentBlock($block = "__global__") {
+    function setCurrentBlock($block = "__global__")
+    {
 
         if (!isset($this->blocklist[$block])) {
             return PEAR::raiseError(
@@ -673,7 +670,8 @@ class HTML_Template_IT {
      * @access   public
      * @see      $removeEmptyBlocks
      */
-    function touchBlock($block) {
+    function touchBlock($block)
+    {
 
         if (!isset($this->blocklist[$block])) {
             return PEAR::raiseError(
@@ -696,7 +694,8 @@ class HTML_Template_IT {
      * @access   public
      * @see      free()
      */
-    function init() {
+    function init()
+    {
 
         $this->free();
         $this->findBlocks($this->template);
@@ -714,7 +713,8 @@ class HTML_Template_IT {
      * @access   public
      * @see      init()
      */
-    function free() {
+    function free()
+    {
 
         $this->err = array();
 
@@ -742,29 +742,26 @@ class HTML_Template_IT {
      * @access       public
      */
     function setTemplate( $template, $removeUnknownVariables = true,
-                          $removeEmptyBlocks = true
-    ) {
+                          $removeEmptyBlocks = true)
+    {
 
         $this->removeUnknownVariables = $removeUnknownVariables;
         $this->removeEmptyBlocks = $removeEmptyBlocks;
 
-        if ("" == $template && $this->flagCacheTemplatefile) {
-
+        if ($template == '' && $this->flagCacheTemplatefile) {
             $this->variableCache = array();
             $this->blockdata = array();
             $this->touchedBlocks = array();
             $this->currentBlock = "__global__";
-
         } else {
-
             $this->template = '<!-- BEGIN __global__ -->' . $template .
                               '<!-- END __global__ -->';
             $this->init();
-
         }
 
-        if ($this->flagBlocktrouble)
+        if ($this->flagBlocktrouble) {
             return false;
+        }
 
         return true;
     } // end func setTemplate
@@ -782,20 +779,21 @@ class HTML_Template_IT {
      */
     function loadTemplatefile( $filename,
                                $removeUnknownVariables = true,
-                               $removeEmptyBlocks = true ) {
+                               $removeEmptyBlocks = true )
+    {
 
-        $template = "";
+        $template = '';
         if (!$this->flagCacheTemplatefile ||
             $this->lastTemplatefile != $filename
-        ){
+        ) {
             $template = $this->getFile($filename);
         }
         $this->lastTemplatefile = $filename;
 
-        return $template!=""?
+        return $template != '' ?
                 $this->setTemplate(
                         $template,$removeUnknownVariables, $removeEmptyBlocks
-                    ):false;
+                    ) : false;
     } // end func LoadTemplatefile
 
     /**
@@ -809,55 +807,50 @@ class HTML_Template_IT {
      * @see      IntegratedTemplate()
      * @access   public
      */
-    function setRoot($root) {
+    function setRoot($root)
+    {
 
-        if ("" != $root && "/" != substr($root, -1))
-            $root .= "/";
+        if ($root != '' && substr($root, -1) != '/') {
+            $root .= '/';
+        }
 
         $this->fileRoot = $root;
-
     } // end func setRoot
 
     /**
      * Build a list of all variables within of a block
      */
-    function buildBlockvariablelist() {
+    function buildBlockvariablelist()
+    {
 
         foreach ($this->blocklist as $name => $content) {
-            preg_match_all( $this->variablesRegExp, $content, $regs );
+            preg_match_all($this->variablesRegExp, $content, $regs);
 
-            if (0 != count($regs[1])) {
-
-                foreach ($regs[1] as $k => $var)
+            if (count($regs[1]) != 0) {
+                foreach ($regs[1] as $k => $var) {
                     $this->blockvariables[$name][$var] = true;
-
+                }
             } else {
-
                 $this->blockvariables[$name] = array();
-
             }
-
         }
-
     } // end func buildBlockvariablelist
 
     /**
      * Returns a list of all global variables
      */
-    function getGlobalvariables() {
-
+    function getGlobalvariables()
+    {
         $regs   = array();
         $values = array();
 
         foreach ($this->blockvariables["__global__"] as $allowedvar => $v) {
-
             if (isset($this->variableCache[$allowedvar])) {
                 $regs[]   = "@" . $this->openingDelimiter .
                             $allowedvar . $this->closingDelimiter."@";
                 $values[] = $this->variableCache[$allowedvar];
                 unset($this->variableCache[$allowedvar]);
             }
-
         }
 
         return array($regs, $values);
@@ -869,8 +862,8 @@ class HTML_Template_IT {
      * @param    string    string that gets scanned
      * @see      $blocklist
      */
-    function findBlocks($string) {
-
+    function findBlocks($string)
+    {
         $blocklist = array();
 
         if (
@@ -930,14 +923,15 @@ class HTML_Template_IT {
      * @param    string    Filename
      * @return   string    Filecontent
      */
-    function getFile($filename) {
-
-        if ("/" == $filename{0} && "/" == substr($this->fileRoot, -1))
+    function getFile($filename)
+    {
+        if ($filename{0} == '/' && substr($this->fileRoot, -1) == '/') {
             $filename = substr($filename, 1);
+        }
 
         $filename = $this->fileRoot . $filename;
 
-        if (!($fh = @fopen($filename, "r"))) {
+        if (!($fh = @fopen($filename, 'r'))) {
             $this->err[] = PEAR::raiseError(
                         $this->errorMessage(IT_TPL_NOT_FOUND) .
                         ': "' .$filename .'"',
