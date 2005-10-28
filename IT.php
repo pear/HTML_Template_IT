@@ -144,7 +144,7 @@ class HTML_Template_IT {
      * @access   public
      * @see      $closingDelimiter, $blocknameRegExp, $variablenameRegExp
      */
-    var $openingDelimiter = "{";
+    var $openingDelimiter = '{';
 
     /**
      * Last character of a variable placeholder ( {VARIABLE_}_ ).
@@ -152,7 +152,7 @@ class HTML_Template_IT {
      * @access   public
      * @see      $openingDelimiter, $blocknameRegExp, $variablenameRegExp
      */
-    var $closingDelimiter     = "}";
+    var $closingDelimiter     = '}';
 
     /**
      * RegExp matching a block in the template.
@@ -162,7 +162,7 @@ class HTML_Template_IT {
      * @access   public
      * @see      $variablenameRegExp, $openingDelimiter, $closingDelimiter
      */
-    var $blocknameRegExp    = "[0-9A-Za-z_-]+";
+    var $blocknameRegExp    = '[0-9A-Za-z_-]+';
 
     /**
      * RegExp matching a variable placeholder in the template.
@@ -172,7 +172,7 @@ class HTML_Template_IT {
      * @access   public
      * @see      $blocknameRegExp, $openingDelimiter, $closingDelimiter
      */
-    var $variablenameRegExp    = "[0-9A-Za-z_-]+";
+    var $variablenameRegExp    = '[0-9A-Za-z_-]+';
 
     /**
      * RegExp used to find variable placeholder, filled by the constructor.
@@ -213,7 +213,7 @@ class HTML_Template_IT {
      * Name of the current block.
      * @var      string
      */
-    var $currentBlock = "__global__";
+    var $currentBlock = '__global__';
 
     /**
      * Content of the template.
@@ -373,12 +373,12 @@ class HTML_Template_IT {
         if (!is_null($options)) {
             $this->setOptions($options);
         }
-        $this->variablesRegExp = "@" . $this->openingDelimiter .
-                                 "(" . $this->variablenameRegExp . ")" .
-                                 $this->closingDelimiter . "@sm";
-        $this->removeVariablesRegExp = "@" . $this->openingDelimiter .
+        $this->variablesRegExp = '@' . $this->openingDelimiter .
+                                 '(' . $this->variablenameRegExp . ')' .
+                                 $this->closingDelimiter . '@sm';
+        $this->removeVariablesRegExp = '@' . $this->openingDelimiter .
                                        "\s*(" . $this->variablenameRegExp .
-                                       ")\s*" . $this->closingDelimiter ."@sm";
+                                       ")\s*" . $this->closingDelimiter .'@sm';
 
         $this->blockRegExp = '@<!--\s+BEGIN\s+(' . $this->blocknameRegExp .
                              ')\s+-->(.*)<!--\s+END\s+\1\s+-->@sm';
@@ -438,7 +438,7 @@ class HTML_Template_IT {
      * Print a certain block with all replacements done.
      * @brother get()
      */
-    function show($block = "__global__")
+    function show($block = '__global__')
     {
         print $this->get($block);
     } // end func show
@@ -452,10 +452,10 @@ class HTML_Template_IT {
      * @access   public
      * @see      show()
      */
-    function get($block = "__global__")
+    function get($block = '__global__')
     {
-        if ($block == "__global__"  && !$this->flagGlobalParsed) {
-            $this->parse("__global__");
+        if ($block == '__global__'  && !$this->flagGlobalParsed) {
+            $this->parse('__global__');
         }
 
         if (!isset($this->blocklist[$block])) {
@@ -494,7 +494,7 @@ class HTML_Template_IT {
      * @see      parseCurrentBlock()
      * @throws   PEAR_Error
      */
-    function parse($block = "__global__", $flag_recursion = false)
+    function parse($block = '__global__', $flag_recursion = false)
     {
         static $regs, $values;
 
@@ -505,7 +505,7 @@ class HTML_Template_IT {
                 );
         }
 
-        if ($block == "__global__") {
+        if ($block == '__global__') {
             $this->flagGlobalParsed = true;
         }
 
@@ -640,7 +640,7 @@ class HTML_Template_IT {
      * @throws   PEAR_Error
      * @access   public
      */
-    function setCurrentBlock($block = "__global__")
+    function setCurrentBlock($block = '__global__')
     {
 
         if (!isset($this->blocklist[$block])) {
@@ -708,7 +708,7 @@ class HTML_Template_IT {
     {
         $this->err = array();
 
-        $this->currentBlock = "__global__";
+        $this->currentBlock = '__global__';
 
         $this->variableCache    = array();
         $this->blocklookup      = array();
@@ -740,7 +740,7 @@ class HTML_Template_IT {
             $this->variableCache = array();
             $this->blockdata = array();
             $this->touchedBlocks = array();
-            $this->currentBlock = "__global__";
+            $this->currentBlock = '__global__';
         } else {
             $this->template = '<!-- BEGIN __global__ -->' . $template .
                               '<!-- END __global__ -->';
@@ -829,10 +829,10 @@ class HTML_Template_IT {
         $regs   = array();
         $values = array();
 
-        foreach ($this->blockvariables["__global__"] as $allowedvar => $v) {
+        foreach ($this->blockvariables['__global__'] as $allowedvar => $v) {
             if (isset($this->variableCache[$allowedvar])) {
-                $regs[]   = "@" . $this->openingDelimiter .
-                            $allowedvar . $this->closingDelimiter."@";
+                $regs[]   = '@' . $this->openingDelimiter .
+                            $allowedvar . $this->closingDelimiter . '@';
                 $values[] = $this->variableCache[$allowedvar];
                 unset($this->variableCache[$allowedvar]);
             }
@@ -882,7 +882,7 @@ class HTML_Template_IT {
                     $this->blocklist[$blockname] = preg_replace(
                                         $pattern,
                                         $this->openingDelimiter .
-                                        "__" . $name . "__" .
+                                        '__' . $name . '__' .
                                         $this->closingDelimiter,
                                         $this->blocklist[$blockname]
                                );
