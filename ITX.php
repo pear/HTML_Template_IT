@@ -627,12 +627,14 @@ class HTML_Template_ITX extends HTML_Template_IT {
             $head = $this->getValue($template, ')');
             $args = array();
 
-            $this->template = str_replace($regs[0] . $head . ')',
-                                '{__function' . $num . '__}', $this->template
-                            );
-            $template = str_replace($regs[0] . $head . ')',
-                        '{__function' . $num . '__}', $template
-                        );
+            $search = $regs[0] . $head . ')';
+
+            $replace = $this->openingDelimiter .
+                       '__function' . $num . '__' .
+                       $this->closingDelimiter;
+
+            $this->template = str_replace($search, $replace, $this->template);
+            $template       = str_replace($search, $replace, $template);
 
             while ($head != '' && $args2 = $this->getValue($head, ',')) {
                 $arg2 = trim($args2);

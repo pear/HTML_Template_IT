@@ -45,13 +45,12 @@ you to modify some parts of your layout easily.
   </maintainers>
   <license>PHP License</license>
   <release>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <state>stable</state>
-    <date>2003-08-21</date>
+    <date>2005-11-04</date>
     <notes>
-- fix #4590, case sensitive method name getFile fix
-- fix #1453, haltOnWarning fix, wrong property name called
-- fix #3952, return IT_OK on success in setOptions
+- Comply better with the coding standards
+- Fixed Bug #5774 ITX->buildFunctionlist, forced to use {} as delimiters instead of the user defined once
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML/Template">
@@ -69,7 +68,7 @@ you to modify some parts of your layout easily.
             <file name="loadtemplatefile.html"/>
             <file name="replaceblock.html"/>
           </dir>
-		  <file name="Console_TestListener.php"/>
+          <file name="Console_TestListener.php"/>
           <file name="IT_api_testcase.php"/>
           <file name="IT_usage_testcase.php"/>
           <file name="ITX_api_testcase.php"/>
@@ -87,12 +86,21 @@ you to modify some parts of your layout easily.
   </release>
   <changelog>
   <release>
+    <version>1.1.1</version>
+    <state>stable</state>
+    <date>2003-08-21</date>
+    <notes>
+- fix #4590, case sensitive method name getFile fix
+- fix #1453, haltOnWarning fix, wrong property name called
+- fix #3952, return IT_OK on success in setOptions
+    </notes>
+  <release>
     <version>1.1</version>
     <state>stable</state>
     <date>2003-03-11</date>
     <notes>
       *BETA* release.
-- Added str_replace optionnal parsing (fixes problems 
+- Added str_replace optionnal parsing (fixes problems
   with regular expression like '$' symbols) (Alexey, pajoye)
 - Added preserve_data to substitute/preserve variables inside
   in datas already passed through setVariable (Alexey)
