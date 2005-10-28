@@ -35,23 +35,25 @@ you to modify some parts of your layout easily.
       <role>developer</role>
       <name>Ulf Wendel</name>
       <email>ulf.wendel@phpdoc.de</email>
+      <inactive />
     </maintainer>
     <maintainer>
       <user>pajoye</user>
       <role>lead</role>
       <name>Pierre-Alain Joye</name>
-      <email>paj@pearfr.org</email>
+      <email>pajoye@php.net</email>
     </maintainer>
   </maintainers>
   <license>PHP License</license>
   <release>
     <version>1.1.2</version>
     <state>stable</state>
-    <date>2005-11-04</date>
+    <date>2005-10-28</date>
     <notes>
-- Comply better with the coding standards
-- Fixed Bug #5774 ITX->buildFunctionlist, forced to use {} as delimiters instead of the user defined once
-- Fixed Bug #5642   Undefined variable: blockname
+- Comply better with the coding standards (helgi@php.net)
+- Fixed Bug #5774 ITX->buildFunctionlist, forced to use {} as delimiters
+  instead of the user defined once  (helgi@php.net)
+- Fixed Bug #5642   Undefined variable: blockname (helgi@php.net)
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML/Template">
