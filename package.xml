@@ -58,6 +58,7 @@ you to modify some parts of your layout easily.
         <file role="php" name="IT.php"/>
         <file role="php" name="ITX.php"/>
         <file role="php" name="IT_Error.php"/>
+        <file role="doc" name="LICENCE" />
         <dir name="tests" role="test">
           <dir name="templates">
             <file name="addblock.html"/>
