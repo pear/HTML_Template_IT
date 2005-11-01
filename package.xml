@@ -44,16 +44,14 @@ you to modify some parts of your layout easily.
       <email>pajoye@php.net</email>
     </maintainer>
   </maintainers>
-  <license>PHP License</license>
+  <license>Modified BSD license</license>
   <release>
     <version>1.1.2</version>
     <state>stable</state>
-    <date>2005-10-28</date>
+    <date>2005-11-01</date>
     <notes>
-- Comply better with the coding standards (dufuz@php.net)
-- Fixed Bug #5774 ITX->buildFunctionlist, forced to use {} as delimiters
-  instead of the user defined once  (dufuz@php.net)
-- Fixed Bug #5642   Undefined variable: blockname (dufuz@php.net)
+- Change to the new BSD License
+  (see http://www.opensource.org/licenses/bsd-license.php) 
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML/Template">
@@ -88,6 +86,17 @@ you to modify some parts of your layout easily.
     </filelist>
   </release>
   <changelog>
+  <release>
+    <version>1.1.2</version>
+    <state>stable</state>
+    <date>2005-10-28</date>
+    <notes>
+- Comply better with the coding standards (dufuz@php.net)
+- Fixed Bug #5774 ITX->buildFunctionlist, forced to use {} as delimiters
+  instead of the user defined once  (dufuz@php.net)
+- Fixed Bug #5642   Undefined variable: blockname (dufuz@php.net)
+    </notes>
+  </release>
   <release>
     <version>1.1.1</version>
     <state>stable</state>
