@@ -915,7 +915,12 @@ class HTML_Template_IT
             return "";
         }
 
-        $content = fread($fh, filesize($filename));
+		$fsize = filesize($filename);
+        if ($fsize < 1) {
+            return '';
+        }
+
+        $content = fread($fh, $fsize);
         fclose($fh);
 
         return preg_replace(
