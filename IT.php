@@ -917,6 +917,7 @@ class HTML_Template_IT
 
 		$fsize = filesize($filename);
         if ($fsize < 1) {
+			fclose($fh);
             return '';
         }
 
