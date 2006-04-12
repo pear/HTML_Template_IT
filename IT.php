@@ -589,7 +589,11 @@ class HTML_Template_IT
                 }
             }
         } else {
-            $this->blockdata[$block] .= $outer;
+            if (empty($this->blockdata[$block])) {
+                $this->blockdata[$block] = $outer;
+            } else {
+                $this->blockdata[$block] .= $outer;
+            }
         }
 
         return $empty;
