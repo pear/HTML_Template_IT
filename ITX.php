@@ -673,7 +673,7 @@ class HTML_Template_ITX extends HTML_Template_IT
                 $char = $code[$i];
 
                 if (
-                        ($char == '"' || $char = "'") &&
+                        ($char == '"' || $char == "'") &&
                         ($char == $enclosed_by || '' == $enclosed_by) &&
                         (0 == $i || ($i > 0 && '\\' != $code[$i - 1]))
                     ) {
