@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
 <package version="1.0">
   <name>HTML_Template_IT</name>
@@ -35,7 +35,7 @@ you to modify some parts of your layout easily.
       <role>developer</role>
       <name>Ulf Wendel</name>
       <email>ulf.wendel@phpdoc.de</email>
-      <inactive />
+      <inactive/>
     </maintainer>
     <maintainer>
       <user>pajoye</user>
@@ -46,19 +46,21 @@ you to modify some parts of your layout easily.
   </maintainers>
   <license>Modified BSD license</license>
   <release>
-    <version>1.1.3</version>
+    <version>1.1.4</version>
     <state>stable</state>
-    <date>2005-11-01</date>
+    <date>2006-04-12</date>
     <notes>
-- Change to the new BSD License
-  (see http://www.opensource.org/licenses/bsd-license.php) 
+- #6084, fread raises warning when used with empty files
+- #7359, remove notices when a block is not yet defined
+- fix a bug introduced with some cleanup commit, in some cases,
+  callbacks did not work anymore
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML/Template">
         <file role="php" name="IT.php"/>
         <file role="php" name="ITX.php"/>
         <file role="php" name="IT_Error.php"/>
-        <file role="doc" name="LICENSE" />
+        <file role="doc" name="LICENSE"/>
         <dir name="tests" role="test">
           <dir name="templates">
             <file name="addblock.html"/>
@@ -87,32 +89,41 @@ you to modify some parts of your layout easily.
     </filelist>
   </release>
   <changelog>
-  <release>
-    <version>1.1.2</version>
-    <state>stable</state>
-    <date>2005-10-28</date>
-    <notes>
+    <release>
+      <version>1.1.3</version>
+      <state>stable</state>
+      <date>2005-11-01</date>
+      <notes>
+- Change to the new BSD License
+  (see http://www.opensource.org/licenses/bsd-license.php) 
+    </notes>
+    </release>
+    <release>
+      <version>1.1.2</version>
+      <state>stable</state>
+      <date>2005-10-28</date>
+      <notes>
 - Comply better with the coding standards (dufuz@php.net)
-- Fixed Bug #5774 ITX->buildFunctionlist, forced to use {} as delimiters
+- Fixed Bug #5774 ITX-&gt;buildFunctionlist, forced to use {} as delimiters
   instead of the user defined once  (dufuz@php.net)
 - Fixed Bug #5642   Undefined variable: blockname (dufuz@php.net)
     </notes>
-  </release>
-  <release>
-    <version>1.1.1</version>
-    <state>stable</state>
-    <date>2003-08-21</date>
-    <notes>
+    </release>
+    <release>
+      <version>1.1.1</version>
+      <state>stable</state>
+      <date>2003-08-21</date>
+      <notes>
 - fix #4590, case sensitive method name getFile fix
 - fix #1453, haltOnWarning fix, wrong property name called
 - fix #3952, return IT_OK on success in setOptions
     </notes>
-  </release>
-  <release>
-    <version>1.1</version>
-    <state>stable</state>
-    <date>2003-03-11</date>
-    <notes>
+    </release>
+    <release>
+      <version>1.1</version>
+      <state>stable</state>
+      <date>2003-03-11</date>
+      <notes>
       *BETA* release.
 - Added str_replace optionnal parsing (fixes problems
   with regular expression like '$' symbols) (Alexey, pajoye)
@@ -120,6 +131,6 @@ you to modify some parts of your layout easily.
   in datas already passed through setVariable (Alexey)
 A special thank to Alexey Borzov to provide a patch for his fixes
     </notes>
-  </release>
+    </release>
   </changelog>
 </package>
