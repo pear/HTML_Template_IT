@@ -714,7 +714,7 @@ class HTML_Template_IT
         $this->currentBlock = '__global__';
 
         $this->variableCache    = array();
-        $this->blocklookup      = array();
+        $this->blocklist        = array();
         $this->touchedBlocks    = array();
 
         $this->flagBlocktrouble = false;
