@@ -161,7 +161,7 @@ class HTML_Template_IT
      * @access   public
      * @see      $variablenameRegExp, $openingDelimiter, $closingDelimiter
      */
-    var $blocknameRegExp    = '[0-9A-Za-z_-]+';
+    var $blocknameRegExp    = '[\.0-9A-Za-z_-]+';
 
     /**
      * RegExp matching a variable placeholder in the template.
@@ -171,7 +171,7 @@ class HTML_Template_IT
      * @access   public
      * @see      $blocknameRegExp, $openingDelimiter, $closingDelimiter
      */
-    var $variablenameRegExp    = '[0-9A-Za-z_-]+';
+    var $variablenameRegExp    = '[\.0-9A-Za-z_-]+';
 
     /**
      * RegExp used to find variable placeholder, filled by the constructor.
@@ -794,7 +794,7 @@ class HTML_Template_IT
      * on windows.
      *
      * @param    string
-     * @see      IntegratedTemplate()
+     * @see      HTML_Template_IT()
      * @access   public
      */
     function setRoot($root)
