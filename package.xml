@@ -43,15 +43,23 @@ you to modify some parts of your layout easily.
       <name>Pierre-Alain Joye</name>
       <email>pajoye@php.net</email>
     </maintainer>
+    <maintainer>
+       <user>dsp</user>
+       <role>developer</role>
+       <name>David Soria Parra</name>
+       <email>dsp@php.net</email>
+    </maintainer>
   </maintainers>
   <license>Modified BSD license</license>
   <release>
-    <version>1.1.5</version>
-    <state>stable</state>
-    <date>2006-06-13</date>
+    <version>1.2</version>
+    <state>beta</state>
+    <date>2006-08-17</date>
     <notes>
-- #7611, wrong array initialized, the same object cannot be
-  used for multiple templates 
+- Deprecate $callbackobject parameter in setCallbackFunction
+- Introduce $expandCallbackParameters parameter to setCallbackFunction to support 
+  callbacks that expect to get the parameters in a regular way, not as an array
+- #7651, allow dots in placeholder and block names 
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML/Template">
@@ -79,14 +87,26 @@ you to modify some parts of your layout easily.
         </dir>
         <dir name="examples" role="doc">
           <file name="sample_it.php"/>
+          <file name="sample_itx_addblockfile.php" />
           <dir name="templates">
             <file name="main.tpl.htm"/>
+            <file name="addblockfile_list.tpl.htm" />
+            <file name="addblockfile_main.tpl.htm" />
           </dir>
         </dir>
       </dir>
     </filelist>
   </release>
   <changelog>
+    <release>
+      <version>1.1.5</version>
+      <state>stable</state>
+      <date>2006-06-13</date>
+      <notes>
+- #7611, wrong array initialized, the same object cannot be
+  used for multiple templates 
+      </notes>
+    </release>
     <release>
       <version>1.1.4</version>
       <state>stable</state>
