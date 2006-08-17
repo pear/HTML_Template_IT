@@ -45,7 +45,7 @@ you to modify some parts of your layout easily.
     </maintainer>
     <maintainer>
        <user>dsp</user>
-       <role>developer</role>
+       <role>lead</role>
        <name>David Soria Parra</name>
        <email>dsp@php.net</email>
     </maintainer>
