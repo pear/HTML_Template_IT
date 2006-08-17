@@ -7,6 +7,18 @@ function _uppercaseCallback($ary)
     return strtoupper($ary[0]);
 }
 
+class Callbacks
+{
+    function _lowercaseCallback($ary)
+    {
+        return strtolower($ary[0]);
+    }
+
+    function _numberFormatCallback($float, $decimals)
+    {
+        return number_format($float, $decimals);
+    }
+}
 
 class ITX_api_TestCase extends IT_api_TestCase
 {
@@ -123,6 +135,39 @@ class ITX_api_TestCase extends IT_api_TestCase
             $this->assertTrue(false, 'Error performing callback: '. $res->getMessage());
         }
         $this->assertEquals('callback:WORD', $this->tpl->get());
+
+        $this->tpl->setTemplate('callback:func_lowercase(Word)');
+        $this->tpl->setCallbackFunction('lowercase', array('Callbacks','_lowercaseCallback'));
+        $res = $this->tpl->performCallback();
+        if (PEAR::isError($res)) {
+            $this->assertTrue(false, 'Error performing callback: '. $res->getMessage());
+        }
+        $this->assertEquals('callback:word', $this->tpl->get());
+
+        $this->tpl->setTemplate('callback:func_lowercase(Word)');
+        $this->tpl->setCallbackFunction('lowercase', array(new Callbacks,'_lowercaseCallback'));
+        $res = $this->tpl->performCallback();
+        if (PEAR::isError($res)) {
+            $this->assertTrue(false, 'Error performing callback: '. $res->getMessage());
+        }
+        $this->assertEquals('callback:word', $this->tpl->get());
+
+        $this->tpl->setTemplate('callback:func_numberFormat(1.5, 2)');
+        $this->tpl->setCallbackFunction('numberFormat', array('Callbacks', '_numberFormatCallback'), '', true);
+        $res = $this->tpl->performCallback();
+        if (PEAR::isError($res)) {
+            $this->assertTrue(false, 'Error performing callback: '. $res->getMessage());
+        }
+        $this->assertEquals('callback:1.50', $this->tpl->get());
+
+        $this->tpl->setTemplate('callback:func_numberFormat(1.5, 2)');
+        $GLOBALS['obj'] = new Callbacks;
+        $this->tpl->setCallbackFunction('numberFormat', '_numberFormatCallback', 'obj', true);
+        $res = $this->tpl->performCallback();
+        if (PEAR::isError($res)) {
+            $this->assertTrue(false, 'Error performing callback: '. $res->getMessage());
+        }
+        $this->assertEquals('callback:1.50', $this->tpl->get());
     }
 }
 
