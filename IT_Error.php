@@ -22,7 +22,7 @@ require_once "PEAR.php";
 /**
 * IT[X] Error class
 * 
-* @package IT[X]
+* @package HTML_Template_IT
 */
 class IT_Error extends PEAR_Error {
 
