@@ -732,6 +732,7 @@ class HTML_Template_IT
      * @param        boolean     remove empty blocks?
      * @see          LoadTemplatefile(), $template
      * @access       public
+     * @return       boolean
      */
     function setTemplate( $template, $removeUnknownVariables = true,
                           $removeEmptyBlocks = true)
@@ -948,7 +949,7 @@ class HTML_Template_IT
    /**
     * Replaces an opening delimiter by a special string
     *
-    * @param string
+    * @param  string
     * @return string
     */
     function _preserveOpeningDelimiter($str)
