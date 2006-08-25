@@ -52,14 +52,16 @@ you to modify some parts of your layout easily.
   </maintainers>
   <license>Modified BSD license</license>
   <release>
-    <version>1.2.0</version>
-    <state>beta</state>
-    <date>2006-08-17</date>
+    <version>1.2.1</version>
+    <state>stable</state>
+    <date>2006-08-25</date>
     <notes>
 - Deprecate $callbackobject parameter in setCallbackFunction
 - Introduce $expandCallbackParameters parameter to setCallbackFunction to support 
   callbacks that expect to get the parameters in a regular way, not as an array
 - #7651, allow dots in placeholder and block names 
+- #7611, wrong array initialized, the same object cannot be
+  used for multiple templates 
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML/Template">
@@ -98,6 +100,17 @@ you to modify some parts of your layout easily.
     </filelist>
   </release>
   <changelog>
+    <release>
+      <version>1.2.0</version>
+      <state>beta</state>
+      <date>2006-08-17</date>
+      <notes>
+- Deprecate $callbackobject parameter in setCallbackFunction
+- Introduce $expandCallbackParameters parameter to setCallbackFunction to support 
+  callbacks that expect to get the parameters in a regular way, not as an array
+- #7651, allow dots in placeholder and block names 
+      </notes>
+    </release>
     <release>
       <version>1.1.5</version>
       <state>stable</state>
