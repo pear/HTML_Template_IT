@@ -67,18 +67,21 @@ class HTML_Template_ITX extends HTML_Template_IT
     /**
     * RegExp used to test for a valid blockname.
     * @var string
+    * @access private
     */
     var $checkblocknameRegExp = '';
 
     /**
     * Functionnameprefix used when searching function calls in the template.
     * @var string
+    * @access public
     */
     var $functionPrefix = 'func_';
 
     /**
     * Functionname RegExp.
     * @var string
+    * @access public
     */
     var $functionnameRegExp = '[_a-zA-Z]+[A-Za-z_0-9]*';
 
@@ -87,6 +90,7 @@ class HTML_Template_ITX extends HTML_Template_IT
     *
     * The variable gets set by the constructor.
     *
+    * @access private
     * @var string
     * @see HTML_Template_IT()
     */
@@ -95,6 +99,7 @@ class HTML_Template_ITX extends HTML_Template_IT
     /**
     * List of functions found in the template.
     *
+    * @access private
     * @var array
     */
     var $functions = array();
@@ -102,6 +107,7 @@ class HTML_Template_ITX extends HTML_Template_IT
     /**
     * List of callback functions specified by the user.
     *
+    * @access private
     * @var array
     */
     var $callback = array();
@@ -113,6 +119,7 @@ class HTML_Template_ITX extends HTML_Template_IT
     * Make sure that you call this constructor if you derive your own
     * template class from this one.
     *
+    * @access public
     * @see    HTML_Template_IT()
     */
     function HTML_Template_ITX($root = '')
@@ -125,6 +132,15 @@ class HTML_Template_ITX extends HTML_Template_IT
         $this->HTML_Template_IT($root);
     } // end func constructor
 
+    /**
+     * Clears all datafields of the object and rebuild the internal blocklist
+     *
+     * LoadTemplatefile() and setTemplate() automatically call this function
+     * when a new template is given. Don't use this function
+     * unless you know what you're doing.
+     *
+     * @access private 
+     */
     function init()
     {
         $this->free();
@@ -395,7 +411,7 @@ class HTML_Template_ITX extends HTML_Template_IT
         while (list($func_id, $function) = each($this->functions)) {
             if (isset($this->callback[$function['name']])) {
                 if ($this->callback[$function['name']]['expandParameters']) { 
-                    $callFunction = 'call_user_func_array';
+                    $callFunction = 'call_user_func_array'; 
                 } else {
                     $callFunction = 'call_user_func';
                 }
@@ -438,6 +454,7 @@ class HTML_Template_ITX extends HTML_Template_IT
     *
     * @param    int       Function ID
     * @param    string    Replacement
+    * @access   public
     * @deprecated
     */
     function setFunctioncontent($functionID, $replacement)

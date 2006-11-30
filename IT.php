@@ -133,7 +133,9 @@ class HTML_Template_IT
 
     /**
      * Clear cache on get()?
+
      * @var      boolean
+     * @acces    public
      */
     var $clearCache = false;
 
@@ -205,18 +207,21 @@ class HTML_Template_IT
      * RegExp used to find blocks an their content, filled by the constructor.
      * @var      string
      * @see      IntegratedTemplate()
+     * @access   private
      */
     var $blockRegExp = '';
 
     /**
      * Name of the current block.
      * @var      string
+     * @access   private
      */
     var $currentBlock = '__global__';
 
     /**
      * Content of the template.
      * @var      string
+     * @access   private
      */
     var $template = '';
 
@@ -225,6 +230,7 @@ class HTML_Template_IT
      *
      * @var      array
      * @see      findBlocks()
+     * @access   private
      */
     var $blocklist = array();
 
@@ -232,18 +238,21 @@ class HTML_Template_IT
      * Array with the parsed content of a block.
      *
      * @var      array
+     * @access   private
      */
     var $blockdata = array();
 
     /**
      * Array of variables in a block.
      * @var      array
+     * @access   private
      */
     var $blockvariables = array();
 
     /**
      * Array of inner blocks of a block.
      * @var      array
+     * @access   private
      */
     var $blockinner = array();
 
@@ -271,6 +280,7 @@ class HTML_Template_IT
      *
      * @var  array    $touchedBlocks
      * @see  touchBlock(), $removeEmptyBlocks
+     * @access private
      */
      var $touchedBlocks = array();
 
@@ -278,6 +288,7 @@ class HTML_Template_IT
      * List of blocks which should not be shown even if not "empty"
      * @var  array    $_hiddenBlocks
      * @see  hideBlock(), $removeEmptyBlocks
+     * @access private
      */
     var $_hiddenBlocks = array();
 
@@ -290,6 +301,7 @@ class HTML_Template_IT
      *
      * @var    array
      * @see    setVariable(), $clearCacheOnParse
+     * @access private
      */
     var $variableCache = array();
 
@@ -301,6 +313,7 @@ class HTML_Template_IT
      * add lots of values for unknown placeholder.
      *
      * @var    boolean
+     * @access public
      */
     var $clearCacheOnParse = false;
 
@@ -309,18 +322,21 @@ class HTML_Template_IT
      * The string gets prefixed to all filenames given.
      * @var    string
      * @see    HTML_Template_IT(), setRoot()
+     * @access private
      */
     var $fileRoot = '';
 
     /**
      * Internal flag indicating that a blockname was used multiple times.
      * @var    boolean
+     * @access private
      */
     var $flagBlocktrouble = false;
 
     /**
      * Flag indicating that the global block was parsed.
      * @var    boolean
+     * @access private
      */
     var $flagGlobalParsed = false;
 
@@ -335,11 +351,13 @@ class HTML_Template_IT
      * Now IT could notice this and skip the preparse.
      *
      * @var    boolean
+     * @access private
      */
     var $flagCacheTemplatefile = true;
 
     /**
      * EXPERIMENTAL! FIXME!
+     * @access private
      */
     var $lastTemplatefile = '';
 
@@ -350,6 +368,9 @@ class HTML_Template_IT
      * $_options['use_preg'] Whether to use preg_replace instead of
      * str_replace in parse()
      * (this is a backwards compatibility feature, see also bugs #21951, #20392)
+     *
+     * @var    array
+     * @access private
      */
     var $_options = array(
         'preserve_data' => false,
@@ -366,6 +387,7 @@ class HTML_Template_IT
      * @param    string    File root directory, prefix for all filenames
      *                     given to the object.
      * @see      setRoot()
+     * @access   public
      */
     function HTML_Template_IT($root = '', $options = null)
     {
@@ -436,6 +458,7 @@ class HTML_Template_IT
     /**
      * Print a certain block with all replacements done.
      * @brother get()
+     * @access public
      */
     function show($block = '__global__')
     {
@@ -694,7 +717,7 @@ class HTML_Template_IT
      * when a new template is given. Don't use this function
      * unless you know what you're doing.
      *
-     * @access   public
+     * @access   private
      * @see      free()
      */
     function init()
@@ -711,7 +734,7 @@ class HTML_Template_IT
      *
      * Don't use this function unless you know what you're doing.
      *
-     * @access   public
+     * @access   private
      * @see      init()
      */
     function free()
@@ -816,6 +839,8 @@ class HTML_Template_IT
 
     /**
      * Build a list of all variables within of a block
+     *
+     * @access private
      */
     function buildBlockvariablelist()
     {
@@ -834,6 +859,9 @@ class HTML_Template_IT
 
     /**
      * Returns a list of all global variables
+     *
+     * @access public
+     * @return array
      */
     function getGlobalvariables()
     {
@@ -856,6 +884,7 @@ class HTML_Template_IT
      * Recusively builds a list of all blocks within the template.
      *
      * @param    string    string that gets scanned
+     * @access   private
      * @see      $blocklist
      */
     function findBlocks($string)
@@ -909,6 +938,7 @@ class HTML_Template_IT
      * Reads a file from disk and returns its content.
      * @param    string    Filename
      * @return   string    Filecontent
+     * @access   private
      */
     function getFile($filename)
     {
@@ -947,6 +977,7 @@ class HTML_Template_IT
      *
      * @param string
      * @return string
+     * @access private
      */
     function _addPregDelimiters($str)
     {
@@ -975,6 +1006,7 @@ class HTML_Template_IT
     *
     * @param  string
     * @return string
+    * @access private
     */
     function _preserveOpeningDelimiter($str)
     {
@@ -992,7 +1024,7 @@ class HTML_Template_IT
      * Return a textual error message for a IT error code
      *
      * @param integer $value error code
-     *
+     * @access private
      * @return string error message, or false if the error code was
      * not recognized
      */
