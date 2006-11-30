@@ -470,6 +470,9 @@ class HTML_Template_IT
             $ret = $this->blockdata[$block];
             if ($this->clearCache) {
                 unset($this->blockdata[$block]);
+                if ($block == '__global__') {
+                    $this->flagGlobalParsed = false;
+                }
             }
             if ($this->_options['preserve_data']) {
                 $ret = str_replace(
@@ -560,6 +563,10 @@ class HTML_Template_IT
                 $regs        = array_map(array(
                                     &$this, '_addPregDelimiters'),
                                     $regs
+                                );
+                $values        = array_map(array(
+                                    &$this, '_escapeBackreferences'),
+                                    $values
                                 );
                 $funcReplace = 'preg_replace';
             } else {
@@ -944,6 +951,23 @@ class HTML_Template_IT
     function _addPregDelimiters($str)
     {
         return '@' . $str . '@';
+    }
+
+    /**
+     * Escapes $ and \ as preg_replace will treat
+     * them as a backreference and not literal.
+     * See bug #9501 
+     * 
+     * @since 1.2.2
+     * @param string String to escape
+     * @return string
+     * @access private
+     */
+    function _escapeBackreferences($str) 
+    {
+        $str = str_replace('\\', '\\\\', $str);
+        $str = preg_replace('@\$([0-9]{1,2})@', '\\\$${1}', $str);
+        return $str; 
     }
 
    /**

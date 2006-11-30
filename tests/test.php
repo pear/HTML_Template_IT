@@ -1,14 +1,19 @@
 <?php
 $testcases = array(
-    'ITX_api_testcase',
-    'ITX_usage_testcase'
-);
-// use these if you want to check only base HTML_Template_IT functionality
-if(false)
-$testcases = array(
     'IT_api_testcase',
-    'IT_usage_testcase'
+    'IT_usage_testcase',
+    'IT_bugs_testcase'
 );
+
+// getopt is not available on windows platforms
+// if parameter -x is available, also ITX testcases will be performed
+if(function_exists('getopt') && array_key_exists('x', getopt('x'))) {
+    $testcases = array_merge($testcases,
+                             array(
+                                   'ITX_api_testcase',
+                                   'ITX_usage_testcase'
+                                   ));
+}
 
 require_once 'PHPUnit/TestSuite.php';
 require_once 'HTML/Template/ITX.php';
