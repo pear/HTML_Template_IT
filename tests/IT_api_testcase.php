@@ -1,5 +1,4 @@
 <?php
-
 class IT_api_TestCase extends PHPUnit_TestCase
 {
    /**
@@ -28,7 +27,7 @@ class IT_api_TestCase extends PHPUnit_TestCase
         return preg_replace('/\\s+/', '', $str);
     }
 
-    function _methodExists($name) 
+    function _methodExists($name)
     {
         if (in_array(strtolower($name), get_class_methods($this->tpl))) {
             return true;
@@ -38,7 +37,7 @@ class IT_api_TestCase extends PHPUnit_TestCase
     }
 
    /**
-    * Tests a setTemplate method 
+    * Tests a setTemplate method
     *
     */
     function testSetTemplate()
@@ -51,7 +50,7 @@ class IT_api_TestCase extends PHPUnit_TestCase
     }
 
    /**
-    * Tests a loadTemplatefile method 
+    * Tests a loadTemplatefile method
     *
     */
     function testLoadTemplatefile()
@@ -84,7 +83,7 @@ class IT_api_TestCase extends PHPUnit_TestCase
     }
 
    /**
-    * Tests the <!-- INCLUDE --> functionality 
+    * Tests the <!-- INCLUDE --> functionality
     *
     */
     function testInclude()
@@ -134,6 +133,7 @@ class IT_api_TestCase extends PHPUnit_TestCase
         // data supplied to setVariable() safe. Until then, removing it should
         // be expected behaviour
         $result = $this->tpl->setTemplate('{placeholder1},{placeholder2},{placeholder3}', true, true);
+        $this->tpl->setOption('preserve_input', false);
         if (PEAR::isError($result)) {
             $this->assertTrue(false, 'Error setting template: '. $result->getMessage());
         }
@@ -143,6 +143,19 @@ class IT_api_TestCase extends PHPUnit_TestCase
             'placeholder3' => 'var3{stuff}'
         ));
         $this->assertEquals('var1,var2,var3', $this->tpl->get());
+
+        $result = $this->tpl->setTemplate('{placeholder1},{placeholder2},{placeholder3}', true, true);
+        $this->tpl->setOption('preserve_input', true);
+        if (PEAR::isError($result)) {
+            $this->assertTrue(false, 'Error setting template: '. $result->getMessage());
+        }
+        $this->tpl->setVariable(array(
+            'placeholder1' => 'var1',
+            'placeholder2' => 'var2',
+            'placeholder3' => 'var3{stuff}'
+        ));
+        $this->assertEquals('var1,var2,var3{stuff}', $this->tpl->get());
+
     }
 
    /**
@@ -159,7 +172,7 @@ class IT_api_TestCase extends PHPUnit_TestCase
         $this->tpl->touchBlock('inner_block');
         $this->assertEquals('data|{inner}#', $this->_stripWhitespace($this->tpl->get()));
     }
-   
+
     // Not available in stock class
 
    /**

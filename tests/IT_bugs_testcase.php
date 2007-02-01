@@ -70,6 +70,20 @@ class IT_bugs_TestCase extends PHPUnit_TestCase
         $this->tpl->setVariable("VALUE", $word);
         $this->assertEquals('Test: Cost is $183.22', $this->tpl->get());
     }
+
+    function testBug9783 () 
+    {
+        $this->tpl->setTemplate("<!-- BEGIN entry -->{DATA} <!-- END entry -->", true, true);
+        $data = array ('{Bakken}', 'Soria', 'Joye');
+        foreach ($data as $name) {
+            $this->tpl->setCurrentBlock('entry');
+            $this->tpl->setVariable('DATA', $name); 
+            $this->tpl->parseCurrentBlock();
+        }
+
+        $this->assertEquals('{Bakken} Soria Joye', trim($this->tpl->get()));
+        
+    }
 }
 
 ?>

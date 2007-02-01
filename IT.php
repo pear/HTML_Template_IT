@@ -178,13 +178,14 @@ class HTML_Template_IT
     /**
      * RegExp used to find variable placeholder, filled by the constructor.
      * @var      string    Looks somewhat like @(delimiter varname delimiter)@
-     * @access   public
+     * @access   private
      * @see      IntegratedTemplate()
      */
     var $variablesRegExp = '';
 
     /**
      * RegExp used to strip unused variable placeholder.
+     * @access  private
      * @brother  $variablesRegExp
      */
     var $removeVariablesRegExp = '';
@@ -374,7 +375,8 @@ class HTML_Template_IT
      */
     var $_options = array(
         'preserve_data' => false,
-        'use_preg'      => true
+        'use_preg'      => true,
+        'preserve_input'=> true
     );
 
     /**
@@ -541,12 +543,14 @@ class HTML_Template_IT
         $outer = $this->blocklist[$block];
         $empty = true;
 
+        $variablelist = array();
         if ($this->clearCacheOnParse) {
             foreach ($this->variableCache as $name => $value) {
                 $regs[] = $this->openingDelimiter .
                           $name . $this->closingDelimiter;
                 $values[] = $value;
                 $empty = false;
+                $variablelist[] = $name;
             }
             $this->variableCache = array();
         } else {
@@ -558,6 +562,7 @@ class HTML_Template_IT
                    $values[] = $this->variableCache[$allowedvar];
                    unset($this->variableCache[$allowedvar]);
                    $empty = false;
+                   $variablelist[] = $allowedvar;
                 }
             }
         }
@@ -603,10 +608,10 @@ class HTML_Template_IT
             }
 
             $outer = $funcReplace($regs, $values, $outer);
+        }
 
-            if ($this->removeUnknownVariables) {
-                $outer = preg_replace($this->removeVariablesRegExp, "", $outer);
-            }
+        if ($this->removeUnknownVariables) {
+            $outer = $this->removeUnknownVariablesFromBlock($block, $outer, $variablelist);
         }
 
         if ($empty) {
@@ -628,6 +633,33 @@ class HTML_Template_IT
 
         return $empty;
     } // end func parse
+
+    /**
+     * Removes unknown variables from block. If preserve_input is set to true
+     * only unknown variables that were present during setTemplate or loadTemplatefile
+     * are removed. Thus you can set a variable to "{SOMEINPUTDATA}" which is preserved.
+     *
+     * @see parse()
+     * @access private
+     */
+    function removeUnknownVariablesFromBlock ($blockname, $blockinner, $variableList) {
+        if ($this->_options['preserve_input']) {
+            if (preg_match_all($this->removeVariablesRegExp, $blockinner,
+                               $matches, PREG_SET_ORDER)) {
+                foreach($matches as $found) {
+                    list ($withDelimiters, $variableName) = $found;
+                    if (in_array($variableName, array_keys($this->blockvariables[$blockname]))
+                     && !in_array($variableName, $variableList)) {
+                        $blockinner = str_replace($withDelimiters, '', $blockinner);
+                    }
+                }
+            }
+        } else {
+            $blockinner = preg_replace($this->removeVariablesRegExp, '', $blockinner);
+        }
+
+        return $blockinner;
+    }
 
     /**
      * Parses the current block
@@ -987,18 +1019,18 @@ class HTML_Template_IT
     /**
      * Escapes $ and \ as preg_replace will treat
      * them as a backreference and not literal.
-     * See bug #9501 
-     * 
+     * See bug #9501
+     *
      * @since 1.2.2
      * @param string String to escape
      * @return string
      * @access private
      */
-    function _escapeBackreferences($str) 
+    function _escapeBackreferences($str)
     {
         $str = str_replace('\\', '\\\\', $str);
         $str = preg_replace('@\$([0-9]{1,2})@', '\\\$${1}', $str);
-        return $str; 
+        return $str;
     }
 
    /**
