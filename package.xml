@@ -62,6 +62,7 @@ you to modify some parts of your layout easily.
   To allow backwards compatbility an option preserve_input is added.
   If it is false, the old behaviour will be used and therefore those values will be deleted.
   Default is true, so new behaviour.
+- Fix bug #9853, problems with dots in placeholders or blocknames
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="HTML/Template">
@@ -74,6 +75,8 @@ you to modify some parts of your layout easily.
             <file name="addblock.html"/>
             <file name="blockiteration.html"/>
             <file name="blocks.html"/>
+            <file name="bug_9853_01.tpl" />
+            <file name="bug_9853_02.tpl" />
             <file name="globals.html"/>
             <file name="__include.html"/>
             <file name="include.html"/>
@@ -83,6 +86,7 @@ you to modify some parts of your layout easily.
           <file name="Console_TestListener.php"/>
           <file name="IT_api_testcase.php"/>
           <file name="IT_usage_testcase.php"/>
+          <file name="IT_bugs_testcase.php"/>
           <file name="ITX_api_testcase.php"/>
           <file name="ITX_usage_testcase.php"/>
           <file name="test.php"/>
