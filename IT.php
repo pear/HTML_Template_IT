@@ -1,7 +1,8 @@
 <?php
 //
 // +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2005 Ulf Wendel, Pierre-Alain Joye                |
+// | Copyright (c) 1997-2007 Ulf Wendel, Pierre-Alain Joye,               |
+// |                         David Soria Parra                            |
 // +----------------------------------------------------------------------+
 // | This source file is subject to the New BSD license, That is bundled  |
 // | with this package in the file LICENSE, and is available through      |
@@ -13,6 +14,7 @@
 // +----------------------------------------------------------------------+
 // | Author: Ulf Wendel <ulf.wendel@phpdoc.de>                            |
 // |         Pierre-Alain Joye <pajoye@php.net>                           |
+// |         David Soria Parra <dsp@php.net>                              |
 // +----------------------------------------------------------------------+
 //
 // $Id$
@@ -946,8 +948,8 @@ class HTML_Template_IT
                 foreach ($inner as $k => $name) {
                     $pattern = sprintf(
                         '@<!--\s+BEGIN\s+%s\s+-->(.*)<!--\s+END\s+%s\s+-->@sm',
-                        $name,
-                        $name
+                        preg_quote($name),
+                        preg_quote($name)
                     );
 
                     $this->blocklist[$blockname] = preg_replace(
@@ -1013,7 +1015,7 @@ class HTML_Template_IT
      */
     function _addPregDelimiters($str)
     {
-        return '@' . $str . '@';
+            return '@' . preg_quote($str) . '@';
     }
 
     /**
