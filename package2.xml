@@ -50,24 +50,28 @@ you to modify some parts of your layout easily.
   <email>ulf.wendel@phpdoc.de</email>
   <active>no</active>
  </developer>
- <date>2007-02-12</date>
- <time>21:07:59</time>
+ <date>2007-06-01</date>
+ <time>18:55:00</time>
  <version>
-  <release>1.2.2</release>
-  <api>1.2.2</api>
+  <release>1.3.0a1</release>
+  <api>1.2.1</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>alpha</release>
   <api>stable</api>
  </stability>
  <license>Modified BSD license</license>
  <notes>
+- Add support for pear package 2.0 format
+- Remove support for pear package 1.0 format
 - Fix bug #9501, doller signs disapear if preg_match is used.
 - Fix bug #9783, don&apos;t remove variable which values follow the variable pattern
   To allow backwards compatbility an option preserve_input is added.
   If it is false, the old behaviour will be used and therefore those values will be deleted.
   Default is true, so new behaviour.
 - Fix bug #9853, problems with dots in placeholders or blocknames    
+- Add option 'preserve_input' to only remove unkown variable that were present during setTemplate or lodaTemplatefile
+  which is the behaviour before 1.3.0a1
  </notes>
  <contents>
   <dir name="/">
@@ -85,8 +89,8 @@ you to modify some parts of your layout easily.
      <file baseinstalldir="HTML/Template" name="addblock.html" role="test" />
      <file baseinstalldir="HTML/Template" name="blockiteration.html" role="test" />
      <file baseinstalldir="HTML/Template" name="blocks.html" role="test" />
-     <file baseinstalldir="HTML/Template" name="bugs_9853_01.tpl" role="test" />
-     <file baseinstalldir="HTML/Template" name="bugs_9853_02.tpl" role="test" />
+     <file baseinstalldir="HTML/Template" name="bug_9853_01.tpl" role="test" />
+     <file baseinstalldir="HTML/Template" name="bug_9853_02.tpl" role="test" />
      <file baseinstalldir="HTML/Template" name="globals.html" role="test" />
      <file baseinstalldir="HTML/Template" name="include.html" role="test" />
      <file baseinstalldir="HTML/Template" name="loadtemplatefile.html" role="test" />
@@ -201,7 +205,7 @@ you to modify some parts of your layout easily.
     <api>stable</api>
    </stability>
    <date>2005-11-01</date>
-   <license>Modified BSD license</license>
+   <license filesource="LICENSE" >Modified BSD license</license>
    <notes>- Change to the new BSD License
   (see http://www.opensource.org/licenses/bsd-license.php) 
     
