@@ -45,6 +45,12 @@ you to modify some parts of your layout easily.
   <active>yes</active>
  </lead>
  <developer>
+  <name>Thorsten Rinne</name>
+  <user>thorstenr</user>
+  <email>thorstenr@php.net</email>
+  <active>yes</active>
+ </developer>
+ <developer>
   <name>Ulf Wendel</name>
   <user>uw</user>
   <email>ulf.wendel@phpdoc.de</email>
