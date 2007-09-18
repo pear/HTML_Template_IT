@@ -646,14 +646,9 @@ class HTML_Template_IT
      */
     function removeUnknownVariablesFromBlock ($blockname, $blockinner, $variableList) {
         if ($this->_options['preserve_input']) {
-            if (preg_match_all($this->removeVariablesRegExp, $blockinner,
-                               $matches, PREG_SET_ORDER)) {
-                foreach($matches as $found) {
-                    list ($withDelimiters, $variableName) = $found;
-                    if (in_array($variableName, array_keys($this->blockvariables[$blockname]))
-                     && !in_array($variableName, $variableList)) {
-                        $blockinner = str_replace($withDelimiters, '', $blockinner);
-                    }
+            foreach ($this->blockvariables[$blockname] as $var => $setted) {
+                if(!in_array($var, $variableList)) {
+                    $blockinner = str_replace($this->openingDelimiter . $var . $this->closingDelimiter, '', $blockinner);
                 }
             }
         } else {
