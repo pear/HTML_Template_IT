@@ -1,24 +1,24 @@
 <?php
 /**
  * Integrated Template - IT
- * 
+ *
  * PHP version 4
  *
- * Copyright (c) 1997-2007 Ulf Wendel, Pierre-Alain Joye,               
- *                         David Soria Parra                          
+ * Copyright (c) 1997-2007 Ulf Wendel, Pierre-Alain Joye,
+ *                         David Soria Parra
  *
- * This source file is subject to the New BSD license, That is bundled  
- * with this package in the file LICENSE, and is available through      
- * the world-wide-web at                                                
- * http://www.opensource.org/licenses/bsd-license.php                   
- * If you did not receive a copy of the new BSDlicense and are unable   
- * to obtain it through the world-wide-web, please send a note to       
- * pajoye@php.net so we can mail you a copy immediately.                
- * 
- * Author: Ulf Wendel <ulf.wendel@phpdoc.de>                            
- *         Pierre-Alain Joye <pajoye@php.net>                           
- *         David Soria Parra <dsp@php.net>                              
- * 
+ * This source file is subject to the New BSD license, That is bundled
+ * with this package in the file LICENSE, and is available through
+ * the world-wide-web at
+ * http://www.opensource.org/licenses/bsd-license.php
+ * If you did not receive a copy of the new BSDlicense and are unable
+ * to obtain it through the world-wide-web, please send a note to
+ * pajoye@php.net so we can mail you a copy immediately.
+ *
+ * Author: Ulf Wendel <ulf.wendel@phpdoc.de>
+ *         Pierre-Alain Joye <pajoye@php.net>
+ *         David Soria Parra <dsp@php.net>
+ *
  * @category HTML
  * @package  HTML_Template_IT
  * @author   Ulf Wendel <uw@netuse.de>
@@ -52,8 +52,8 @@ define('IT_UNKNOWN_OPTION', -6);
  *
  * I noticed that I do not any control on which block gets parsed into which one.
  * If all blocks are within one file, the script knows how they are nested and in
- * which way you have to parse them. IT knows that inner1 is a child of block2, there's
- * no need to tell him about this.
+ * which way you have to parse them. IT knows that inner1 is a child of block2,
+ * there's no need to tell him about this.
  *
  * <table border>
  *   <tr>
@@ -100,7 +100,8 @@ define('IT_UNKNOWN_OPTION', -6);
  * </code>
  *
  * This will result in one repition of block1 which contains two repitions
- * of inner1. inner2 will be removed if $removeEmptyBlock is set to true which is the default.
+ * of inner1. inner2 will be removed if $removeEmptyBlock is set to true
+ * which is the default.
  *
  * Usage:
  * <code>
@@ -442,8 +443,9 @@ class HTML_Template_IT
             return IT_OK;
         }
 
-        return PEAR::raiseError($this->errorMessage(IT_UNKNOWN_OPTION) . ": '{$option}'",
-                                IT_UNKNOWN_OPTION);
+        return PEAR::raiseError(
+            $this->errorMessage(IT_UNKNOWN_OPTION) . ": '{$option}'",
+            IT_UNKNOWN_OPTION);
     }
 
     /**
@@ -474,7 +476,7 @@ class HTML_Template_IT
 
     /**
      * Print a certain block with all replacements done.
-     * 
+     *
      * @param string $block block
      *
      * @brother get()
@@ -547,8 +549,8 @@ class HTML_Template_IT
         static $regs, $values;
 
         if (!isset($this->blocklist[$block])) {
-            return PEAR::raiseError($this->errorMessage(IT_BLOCK_NOT_FOUND) . '"' . $block . "'",
-                                    IT_BLOCK_NOT_FOUND);
+            return PEAR::raiseError($this->errorMessage(IT_BLOCK_NOT_FOUND)
+                . '"' . $block . "'", IT_BLOCK_NOT_FOUND);
         }
 
         if ($block == '__global__') {
@@ -613,22 +615,26 @@ class HTML_Template_IT
 
         if (!$flag_recursion && 0 != count($values)) {
             if ($this->_options['use_preg']) {
-                $regs        = array_map(array(&$this, '_addPregDelimiters'), $regs);
-                $values      = array_map(array(&$this, '_escapeBackreferences'), $values);
+                $regs   = array_map(array(&$this, '_addPregDelimiters'), $regs);
+                $values = array_map(array(&$this, '_escapeBackreferences'), $values);
+
                 $funcReplace = 'preg_replace';
             } else {
                 $funcReplace = 'str_replace';
             }
 
             if ($this->_options['preserve_data']) {
-                $values = array_map(array(&$this, '_preserveOpeningDelimiter'), $values);
+                $values = array_map(array(&$this, '_preserveOpeningDelimiter'),
+                    $values);
             }
 
             $outer = $funcReplace($regs, $values, $outer);
         }
 
         if ($this->removeUnknownVariables) {
-            $outer = $this->removeUnknownVariablesFromBlock($block, $outer, $variablelist);
+            $outer = $this->removeUnknownVariablesFromBlock($block,
+                $outer,
+                $variablelist);
         }
 
         if ($empty) {
@@ -653,13 +659,14 @@ class HTML_Template_IT
 
     /**
      * Removes unknown variables from block. If preserve_input is set to true
-     * only unknown variables that were present during setTemplate or loadTemplatefile
-     * are removed. Thus you can set a variable to "{SOMEINPUTDATA}" which is preserved.
+     * only unknown variables that were present during setTemplate or
+     * loadTemplatefile are removed. Thus you can set a variable to
+     * "{SOMEINPUTDATA}" which is preserved.
      *
      * @param string $blockname    block
      * @param string $blockinner   unknown
      * @param string $variableList unknown
-     *  
+     *
      * @see parse()
      * @access private
      * @return null
@@ -669,11 +676,14 @@ class HTML_Template_IT
         if ($this->_options['preserve_input']) {
             foreach ($this->blockvariables[$blockname] as $var => $setted) {
                 if (!in_array($var, $variableList)) {
-                    $blockinner = str_replace($this->openingDelimiter . $var . $this->closingDelimiter, '', $blockinner);
+                    $blockinner = str_replace($this->openingDelimiter .
+                        $var . $this->closingDelimiter, '', $blockinner);
                 }
             }
         } else {
-            $blockinner = preg_replace($this->removeVariablesRegExp, '', $blockinner);
+            $blockinner = preg_replace($this->removeVariablesRegExp,
+                '',
+                $blockinner);
         }
 
         return $blockinner;
@@ -729,8 +739,9 @@ class HTML_Template_IT
     {
 
         if (!isset($this->blocklist[$block])) {
-            return PEAR::raiseError($this->errorMessage(IT_BLOCK_NOT_FOUND) . '"' . $block . "'",
-                                    IT_BLOCK_NOT_FOUND);
+            return PEAR::raiseError($this->errorMessage(IT_BLOCK_NOT_FOUND)
+                . '"' . $block . "'",
+                IT_BLOCK_NOT_FOUND);
         }
 
         $this->currentBlock = $block;
@@ -867,7 +878,9 @@ class HTML_Template_IT
         $this->lastTemplatefile = $filename;
 
         return $template != '' ?
-                $this->setTemplate($template, $removeUnknownVariables, $removeEmptyBlocks) : false;
+                $this->setTemplate($template,
+                    $removeUnknownVariables,
+                    $removeEmptyBlocks) : false;
     } // end func LoadTemplatefile
 
     /**
@@ -968,16 +981,15 @@ class HTML_Template_IT
                 $blocklist[] = $blockname;
 
                 $inner = $this->findBlocks($blockcontent);
+                $regex = '@<!--\s+BEGIN\s+%s\s+-->(.*)<!--\s+END\s+%s\s+-->@sm';
                 foreach ($inner as $k => $name) {
-                    $pattern = sprintf('@<!--\s+BEGIN\s+%s\s+-->(.*)<!--\s+END\s+%s\s+-->@sm',
-                                       preg_quote($name),
-                                       preg_quote($name));
+                    $pattern = sprintf($regex, preg_quote($name), preg_quote($name));
 
                     $this->blocklist[$blockname] = preg_replace($pattern,
-                                                                $this->openingDelimiter .
-                                                                '__' . $name . '__' .
-                                                                $this->closingDelimiter,
-                                                                $this->blocklist[$blockname]);
+                        $this->openingDelimiter .
+                        '__' . $name . '__' .
+                        $this->closingDelimiter,
+                        $this->blocklist[$blockname]);
 
                     $this->blockinner[$blockname][] = $name;
 
@@ -1021,7 +1033,9 @@ class HTML_Template_IT
         $content = fread($fh, $fsize);
         fclose($fh);
 
-        return preg_replace("#<!-- INCLUDE (.*) -->#ime", "\$this->getFile('\\1')", $content);
+        return preg_replace("#<!-- INCLUDE (.*) -->#ime",
+                            "\$this->getFile('\\1')",
+                            $content);
     } // end func getFile
 
     /**

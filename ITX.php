@@ -1,24 +1,24 @@
 <?php
 /**
  * Integrated Template - IT
- * 
+ *
  * PHP version 4
  *
- * Copyright (c) 1997-2007 Ulf Wendel, Pierre-Alain Joye,               
- *                         David Soria Parra                          
+ * Copyright (c) 1997-2007 Ulf Wendel, Pierre-Alain Joye,
+ *                         David Soria Parra
  *
- * This source file is subject to the New BSD license, That is bundled  
- * with this package in the file LICENSE, and is available through      
- * the world-wide-web at                                                
- * http://www.opensource.org/licenses/bsd-license.php                   
- * If you did not receive a copy of the new BSDlicense and are unable   
- * to obtain it through the world-wide-web, please send a note to       
- * pajoye@php.net so we can mail you a copy immediately.                
- * 
- * Author: Ulf Wendel <ulf.wendel@phpdoc.de>                            
- *         Pierre-Alain Joye <pajoye@php.net>                           
- *         David Soria Parra <dsp@php.net>                              
- * 
+ * This source file is subject to the New BSD license, That is bundled
+ * with this package in the file LICENSE, and is available through
+ * the world-wide-web at
+ * http://www.opensource.org/licenses/bsd-license.php
+ * If you did not receive a copy of the new BSDlicense and are unable
+ * to obtain it through the world-wide-web, please send a note to
+ * pajoye@php.net so we can mail you a copy immediately.
+ *
+ * Author: Ulf Wendel <ulf.wendel@phpdoc.de>
+ *         Pierre-Alain Joye <pajoye@php.net>
+ *         David Soria Parra <dsp@php.net>
+ *
  * @category HTML
  * @package  HTML_Template_IT
  * @author   Ulf Wendel <uw@netuse.de>
@@ -154,7 +154,7 @@ class HTML_Template_ITX extends HTML_Template_IT
      * when a new template is given. Don't use this function
      * unless you know what you're doing.
      *
-     * @access private 
+     * @access private
      * @return null
      */
     function init()
@@ -238,7 +238,8 @@ class HTML_Template_ITX extends HTML_Template_IT
      *
      * @param string  $block        Blockname
      * @param string  $filename     Name of the file that contains the blockcontent
-     * @param boolean $keep_content true if the new block inherits the content of the old block
+     * @param boolean $keep_content true if the new block inherits the content of
+     *                              the old block
      *
      * @brother replaceBlock()
      * @access  public
@@ -271,8 +272,8 @@ class HTML_Template_ITX extends HTML_Template_IT
      * and end with <!-- END blockname --> this would cause overhead and
      * produce an error.
      *
-     * @param string $placeholder Name of the variable placeholder, the name must be unique
-     *                            within the template.
+     * @param string $placeholder Name of the variable placeholder, the name
+     *                            must be unique within the template.
      * @param string $blockname   Name of the block to be added
      * @param string $template    Content of the block
      *
@@ -320,7 +321,9 @@ class HTML_Template_ITX extends HTML_Template_IT
                                 __FILE__, __LINE__);
         }
 
-        $template = "<!-- BEGIN $blockname -->" . $template . "<!-- END $blockname -->";
+        $template = "<!-- BEGIN $blockname -->"
+                  . $template
+                  . "<!-- END $blockname -->";
         $this->findBlocks($template);
         if ($this->flagBlocktrouble) {
             return false;    // findBlocks() already throws an exception
@@ -328,13 +331,13 @@ class HTML_Template_ITX extends HTML_Template_IT
 
         $this->blockinner[$parents[0]][] = $blockname;
 
-        $this->blocklist[$parents[0]] = preg_replace('@' . $this->openingDelimiter . $placeholder .
-                                                    $this->closingDelimiter . '@',
+        $escblockname = '__' . $blockname . '__';
 
-                                                    $this->openingDelimiter . '__' . $blockname . '__' .
-                                                    $this->closingDelimiter,
-
-                                                    $this->blocklist[$parents[0]]);
+        $this->blocklist[$parents[0]] = preg_replace(
+            '@' . $this->openingDelimiter . $placeholder .
+            $this->closingDelimiter . '@',
+            $this->openingDelimiter . $escblockname . $this->closingDelimiter,
+            $this->blocklist[$parents[0]]);
 
         $this->deleteFromBlockvariablelist($parents[0], $placeholder);
         $this->updateBlockvariablelist($blockname);
@@ -428,25 +431,28 @@ class HTML_Template_ITX extends HTML_Template_IT
         reset($this->functions);
         while (list($func_id, $function) = each($this->functions)) {
             if (isset($this->callback[$function['name']])) {
-                if ($this->callback[$function['name']]['expandParameters']) { 
-                    $callFunction = 'call_user_func_array'; 
+                if ($this->callback[$function['name']]['expandParameters']) {
+                    $callFunction = 'call_user_func_array';
                 } else {
                     $callFunction = 'call_user_func';
                 }
 
                 if ($this->callback[$function['name']]['object'] != '') {
-                     $call = $callFunction(array(&$GLOBALS[$this->callback[$function['name']]['object']],
-                                                 $this->callback[$function['name']]['function']),
-                                           $function['args']);
-                
+                     $call = $callFunction(
+                        array(
+                            &$GLOBALS[$this->callback[$function['name']]['object']],
+                            $this->callback[$function['name']]['function']),
+                        $function['args']);
+
                 } else {
-                     $call = $callFunction($this->callback[$function['name']]['function'],
-                                           $function['args']);
+                     $call = $callFunction(
+                        $this->callback[$function['name']]['function'],
+                        $function['args']);
                 }
                 $this->variableCache['__function' . $func_id . '__'] = $call;
             }
         }
-            
+
     } // end func performCallback
 
     /**
@@ -514,16 +520,18 @@ class HTML_Template_ITX extends HTML_Template_IT
      * @param string  $tplfunction              Function name in the template
      * @param string  $callbackfunction         Name of the callback function
      * @param string  $callbackobject           Name of the callback object
-     * @param boolean $expandCallbackParameters If the callback is called with a list of parameters or
-     *                                          with an array holding the parameters
+     * @param boolean $expandCallbackParameters If the callback is called with
+     *                                          a list of parameters or with an
+     *                                          array holding the parameters
      *
      * @return     boolean   False on failure.
      * @throws     IT_Error
      * @access     public
-     * @deprecated The $callbackobject parameter is depricated since 
+     * @deprecated The $callbackobject parameter is depricated since
      *             version 1.2 and might be dropped in further versions.
      */
-    function setCallbackFunction($tplfunction, $callbackfunction, $callbackobject = '',
+    function setCallbackFunction($tplfunction, $callbackfunction,
+                                 $callbackobject = '',
                                  $expandCallbackParameters = false)
     {
         if ($tplfunction == '' || $callbackfunction == '') {
@@ -534,7 +542,8 @@ class HTML_Template_ITX extends HTML_Template_IT
         $this->callback[$tplfunction] = array(
                                           'function' => $callbackfunction,
                                           'object'   => $callbackobject,
-                                          'expandParameters' => (boolean) $expandCallbackParameters);
+                                          'expandParameters' => (boolean)
+                                                $expandCallbackParameters);
 
         return true;
     } // end func setCallbackFunction
@@ -558,7 +567,8 @@ class HTML_Template_ITX extends HTML_Template_IT
     } // end func setCallbackFunctiontable
 
     /**
-     * Recursively removes all data assiciated with a block, including all inner blocks
+     * Recursively removes all data assiciated with a block, including
+     * all inner blocks
      *
      * @param string $block block to be removed
      *
@@ -704,7 +714,7 @@ class HTML_Template_ITX extends HTML_Template_IT
     /**
      * Truncates the given code from the first occurence of
      * $delimiter but ignores $delimiter enclosed by " or '.
-     * 
+     *
      * @param string $code      The code which should be parsed
      * @param string $delimiter The delimiter char
      *
