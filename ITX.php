@@ -337,7 +337,8 @@ class HTML_Template_ITX extends HTML_Template_IT
             '@' . $this->openingDelimiter . $placeholder .
             $this->closingDelimiter . '@',
             $this->openingDelimiter . $escblockname . $this->closingDelimiter,
-            $this->blocklist[$parents[0]]);
+            $this->blocklist[$parents[0]]
+        );
 
         $this->deleteFromBlockvariablelist($parents[0], $placeholder);
         $this->updateBlockvariablelist($blockname);
@@ -531,9 +532,8 @@ class HTML_Template_ITX extends HTML_Template_IT
      *             version 1.2 and might be dropped in further versions.
      */
     function setCallbackFunction($tplfunction, $callbackfunction,
-                                 $callbackobject = '',
-                                 $expandCallbackParameters = false)
-    {
+        $callbackobject = '',
+    $expandCallbackParameters = false) {
         if ($tplfunction == '' || $callbackfunction == '') {
             return new IT_Error("No template function "."('$tplfunction')".
                                 " and/or no callback function ('$callback') given.",
@@ -742,9 +742,10 @@ class HTML_Template_ITX extends HTML_Template_IT
             for ($i = 0; $i < $len; ++$i) {
                 $char = $code[$i];
 
-                if (($char == '"' || $char == "'") &&
-                        ($char == $enclosed_by || '' == $enclosed_by) &&
-                        (0 == $i || ($i > 0 && '\\' != $code[$i - 1]))) {
+                if (($char == '"' || $char == "'")
+                    && ($char == $enclosed_by || '' == $enclosed_by)
+                    && (0 == $i || ($i > 0 && '\\' != $code[$i - 1]))
+                ) {
 
                     if (!$enclosed) {
                         $enclosed_by = $char;
@@ -798,8 +799,10 @@ class HTML_Template_ITX extends HTML_Template_IT
      */
     function updateBlockvariablelist($block)
     {
-        preg_match_all($this->variablesRegExp,
-                        $this->blocklist[$block], $regs);
+        preg_match_all(
+            $this->variablesRegExp,
+            $this->blocklist[$block], $regs
+        );
 
         if (count($regs[1]) != 0) {
             foreach ($regs[1] as $k => $var) {
@@ -810,9 +813,10 @@ class HTML_Template_ITX extends HTML_Template_IT
         }
 
         // check if any inner blocks were found
-        if (isset($this->blockinner[$block]) &&
-            is_array($this->blockinner[$block]) &&
-            count($this->blockinner[$block]) > 0) {
+        if (isset($this->blockinner[$block])
+            && is_array($this->blockinner[$block])
+            && count($this->blockinner[$block]) > 0
+        ) {
             /*
              * loop through inner blocks, registering the variable
              * placeholders in each
@@ -863,10 +867,12 @@ class HTML_Template_ITX extends HTML_Template_IT
      */
     function warning($message, $file = '', $line = 0)
     {
-        $message = sprintf('HTML_Template_ITX Warning: %s [File: %s, Line: %d]',
-                            $message,
-                            $file,
-                            $line);
+        $message = sprintf(
+            'HTML_Template_ITX Warning: %s [File: %s, Line: %d]',
+            $message,
+            $file,
+            $line
+        );
 
         $this->warn[] = $message;
 

@@ -445,7 +445,8 @@ class HTML_Template_IT
 
         return PEAR::raiseError(
             $this->errorMessage(IT_UNKNOWN_OPTION) . ": '{$option}'",
-            IT_UNKNOWN_OPTION);
+            IT_UNKNOWN_OPTION
+        );
     }
 
     /**
@@ -505,9 +506,10 @@ class HTML_Template_IT
         }
 
         if (!isset($this->blocklist[$block])) {
-            $this->err[] = PEAR::raiseError($this->errorMessage(IT_BLOCK_NOT_FOUND) .
-                                            '"' . $block . "'",
-                                            IT_BLOCK_NOT_FOUND);
+            $this->err[] = PEAR::raiseError(
+                $this->errorMessage(IT_BLOCK_NOT_FOUND) . '"' . $block . "'",
+                IT_BLOCK_NOT_FOUND
+            );
             return '';
         }
 
@@ -522,10 +524,12 @@ class HTML_Template_IT
             }
 
             if ($this->_options['preserve_data']) {
-                $ret = str_replace($this->openingDelimiter .
-                                    '%preserved%' . $this->closingDelimiter,
-                                    $this->openingDelimiter,
-                                    $ret);
+                $ret = str_replace(
+                    $this->openingDelimiter .
+                    '%preserved%' . $this->closingDelimiter,
+                    $this->openingDelimiter,
+                    $ret
+                );
             }
             return $ret;
         }
@@ -549,8 +553,10 @@ class HTML_Template_IT
         static $regs, $values;
 
         if (!isset($this->blocklist[$block])) {
-            return PEAR::raiseError($this->errorMessage(IT_BLOCK_NOT_FOUND)
-                . '"' . $block . "'", IT_BLOCK_NOT_FOUND);
+            return PEAR::raiseError(
+                $this->errorMessage(IT_BLOCK_NOT_FOUND) . '"' . $block . "'",
+                IT_BLOCK_NOT_FOUND
+            );
         }
 
         if ($block == '__global__') {
@@ -605,8 +611,10 @@ class HTML_Template_IT
                 $placeholder = $this->openingDelimiter . "__" .
                                 $innerblock . "__" . $this->closingDelimiter;
 
-                $outer = str_replace($placeholder,
-                                     $this->blockdata[$innerblock], $outer);
+                $outer = str_replace(
+                    $placeholder,
+                    $this->blockdata[$innerblock], $outer
+                );
 
                 $this->blockdata[$innerblock] = "";
             }
@@ -624,17 +632,21 @@ class HTML_Template_IT
             }
 
             if ($this->_options['preserve_data']) {
-                $values = array_map(array(&$this, '_preserveOpeningDelimiter'),
-                    $values);
+                $values = array_map(
+                    array(&$this, '_preserveOpeningDelimiter'),
+                    $values
+                );
             }
 
             $outer = $funcReplace($regs, $values, $outer);
         }
 
         if ($this->removeUnknownVariables) {
-            $outer = $this->removeUnknownVariablesFromBlock($block,
+            $outer = $this->removeUnknownVariablesFromBlock(
+                $block,
                 $outer,
-                $variablelist);
+                $variablelist
+            );
         }
 
         if ($empty) {
@@ -676,14 +688,19 @@ class HTML_Template_IT
         if ($this->_options['preserve_input']) {
             foreach ($this->blockvariables[$blockname] as $var => $setted) {
                 if (!in_array($var, $variableList)) {
-                    $blockinner = str_replace($this->openingDelimiter .
-                        $var . $this->closingDelimiter, '', $blockinner);
+                    $blockinner = str_replace(
+                        $this->openingDelimiter . $var . $this->closingDelimiter,
+                        '',
+                        $blockinner
+                    );
                 }
             }
         } else {
-            $blockinner = preg_replace($this->removeVariablesRegExp,
+            $blockinner = preg_replace(
+                $this->removeVariablesRegExp,
                 '',
-                $blockinner);
+                $blockinner
+            );
         }
 
         return $blockinner;
@@ -739,9 +756,11 @@ class HTML_Template_IT
     {
 
         if (!isset($this->blocklist[$block])) {
-            return PEAR::raiseError($this->errorMessage(IT_BLOCK_NOT_FOUND)
+            return PEAR::raiseError(
+                $this->errorMessage(IT_BLOCK_NOT_FOUND)
                 . '"' . $block . "'",
-                IT_BLOCK_NOT_FOUND);
+                IT_BLOCK_NOT_FOUND
+            );
         }
 
         $this->currentBlock = $block;
@@ -762,8 +781,10 @@ class HTML_Template_IT
     function touchBlock($block)
     {
         if (!isset($this->blocklist[$block])) {
-            return PEAR::raiseError($this->errorMessage(IT_BLOCK_NOT_FOUND) .
-                                    '"' . $block . "'", IT_BLOCK_NOT_FOUND);
+            return PEAR::raiseError(
+                $this->errorMessage(IT_BLOCK_NOT_FOUND) . '"' . $block . "'",
+                IT_BLOCK_NOT_FOUND
+            );
         }
 
         $this->touchedBlocks[$block] = true;
@@ -828,9 +849,9 @@ class HTML_Template_IT
      * @access       public
      * @return       boolean
      */
-    function setTemplate( $template, $removeUnknownVariables = true,
-                          $removeEmptyBlocks = true)
-    {
+    function setTemplate( $template,
+        $removeUnknownVariables = true,
+    $removeEmptyBlocks = true) {
         $this->removeUnknownVariables = $removeUnknownVariables;
 
         $this->removeEmptyBlocks = $removeEmptyBlocks;
@@ -866,21 +887,21 @@ class HTML_Template_IT
      *           $removeEmptyBlocks
      */
     function loadTemplatefile( $filename,
-                               $removeUnknownVariables = true,
-                               $removeEmptyBlocks = true )
-    {
+        $removeUnknownVariables = true,
+    $removeEmptyBlocks = true ) {;
         $template = '';
-        if (!$this->flagCacheTemplatefile ||
-            $this->lastTemplatefile != $filename
+        if (!$this->flagCacheTemplatefile
+            || $this->lastTemplatefile != $filename
         ) {
             $template = $this->getFile($filename);
         }
         $this->lastTemplatefile = $filename;
 
         return $template != '' ?
-                $this->setTemplate($template,
+                $this->setTemplate(
+                    $template,
                     $removeUnknownVariables,
-                    $removeEmptyBlocks) : false;
+                $removeEmptyBlocks) : false;
     } // end func LoadTemplatefile
 
     /**
@@ -985,11 +1006,13 @@ class HTML_Template_IT
                 foreach ($inner as $k => $name) {
                     $pattern = sprintf($regex, preg_quote($name), preg_quote($name));
 
-                    $this->blocklist[$blockname] = preg_replace($pattern,
+                    $this->blocklist[$blockname] = preg_replace(
+                        $pattern,
                         $this->openingDelimiter .
                         '__' . $name . '__' .
                         $this->closingDelimiter,
-                        $this->blocklist[$blockname]);
+                        $this->blocklist[$blockname]
+                    );
 
                     $this->blockinner[$blockname][] = $name;
 
@@ -1018,9 +1041,10 @@ class HTML_Template_IT
         $filename = $this->fileRoot . $filename;
 
         if (!($fh = @fopen($filename, 'r'))) {
-            $this->err[] = PEAR::raiseError($this->errorMessage(IT_TPL_NOT_FOUND) .
-                                            ': "' .$filename .'"',
-                                            IT_TPL_NOT_FOUND);
+            $this->err[] = PEAR::raiseError(
+                $this->errorMessage(IT_TPL_NOT_FOUND) . ': "' .$filename .'"',
+                IT_TPL_NOT_FOUND
+            );
             return "";
         }
 
@@ -1033,10 +1057,14 @@ class HTML_Template_IT
         $content = fread($fh, $fsize);
         fclose($fh);
 
-        return preg_replace("#<!-- INCLUDE (.*) -->#ime",
-                            "\$this->getFile('\\1')",
-                            $content);
+        return preg_replace(
+            "#<!-- INCLUDE (.*) -->#ime",
+            "\$this->getFile('\\1')",
+            $content
+        );
     } // end func getFile
+                $removeUnknownVariables = true,
+                $removeEmptyBlocks = true )
 
     /**
      * Adds delimiters to a string, so it can be used as a pattern
@@ -1082,10 +1110,12 @@ class HTML_Template_IT
     {
         return (false === strpos($str, $this->openingDelimiter))?
                 $str:
-                str_replace($this->openingDelimiter,
-                            $this->openingDelimiter .
-                            '%preserved%' . $this->closingDelimiter,
-                            $str);
+                str_replace(
+                    $this->openingDelimiter,
+                    $this->openingDelimiter .
+                    '%preserved%' . $this->closingDelimiter,
+                    $str
+                );
     }
 
     /**
