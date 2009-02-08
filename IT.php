@@ -1063,8 +1063,6 @@ class HTML_Template_IT
             $content
         );
     } // end func getFile
-                $removeUnknownVariables = true,
-                $removeEmptyBlocks = true )
 
     /**
      * Adds delimiters to a string, so it can be used as a pattern
