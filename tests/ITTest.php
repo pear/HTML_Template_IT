@@ -374,6 +374,15 @@ class ITTest extends PHPUnit_Framework_TestCase
         }
         $this->assertEquals('a|#b#c|#d#e|#', $this->_stripWhitespace($this->tpl->get()));
     }
+
+    public function testShouldSetOptionsCorrectly() {
+        $this->tpl->setOption('removeEmptyBlocks', false);
+        $this->assertFalse($this->tpl->removeEmptyBlocks);
+
+        $this->tpl->setOption('removeEmptyBlocks', true);
+        $this->assertTrue($this->tpl->removeEmptyBlocks);
+
+    }
 }
 
 ?>
