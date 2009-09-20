@@ -2,7 +2,7 @@
 require_once 'HTML/Template/ITX.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 
-require_once 'IT_api_testcase.php';
+require_once 'ITTest.php';
 
 function _uppercaseCallback($ary)
 {
@@ -22,11 +22,11 @@ class Callbacks
     }
 }
 
-class ITX_api_TestCase extends IT_api_Test
+class ITXTest extends ITTest
 {
     function setUp()
     {
-        $this->tpl = new HTML_Template_ITX('./templates');
+        $this->tpl = new HTML_Template_ITX(dirname(__FILE__) . '/templates');
     }
 
     function testPlaceholderExists()

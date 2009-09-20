@@ -12,7 +12,7 @@ class ITTest extends PHPUnit_Framework_TestCase
 
     function setUp()
     {
-        $this->tpl = new HTML_Template_IT('./templates');
+        $this->tpl = new HTML_Template_IT(dirname(__FILE__) . '/templates');
     }
 
     function tearDown()
