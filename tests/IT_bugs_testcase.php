@@ -1,6 +1,8 @@
 <?php
+require_once 'HTML/Template/IT.php';
+require_once 'PHPUnit/Framework/TestCase.php';
 
-class IT_bugs_TestCase extends PHPUnit_TestCase
+class IT_bugs_TestCase extends PHPUnit_Framework_TestCase
 {
    /**
     * An HTML_Template_IT object
@@ -8,14 +10,9 @@ class IT_bugs_TestCase extends PHPUnit_TestCase
     */
     var $tpl;
 
-    function IT_api_TestCase($name)
-    {
-        $this->PHPUnit_TestCase($name);
-    }
-
     function setUp()
     {
-        $this->tpl =& new HTML_Template_IT('./templates');
+        $this->tpl = new HTML_Template_IT('./templates');
     }
 
     function tearDown()
@@ -87,37 +84,37 @@ class IT_bugs_TestCase extends PHPUnit_TestCase
 
     function testBug9853 ()
     {
-            $this->tpl->loadTemplatefile("bug_9853_01.tpl", true, true);
-            
-            $this->tpl->setVariable("VAR" , "Ok !");
-            $this->tpl->parse("foo1");
+        $this->tpl->loadTemplatefile("bug_9853_01.tpl", true, true);
+        
+        $this->tpl->setVariable("VAR" , "Ok !");
+        $this->tpl->parse("foo1");
 
-            $this->tpl->setVariable("VAR" , "Ok !");
-            $this->tpl->parse("foo2");
+        $this->tpl->setVariable("VAR" , "Ok !");
+        $this->tpl->parse("foo2");
 
-            $this->tpl->setVariable("VAR." , "Ok !");
-            $this->tpl->setVariable("VAR2" , "Okay");
-            $this->tpl->parse("bar");
+        $this->tpl->setVariable("VAR." , "Ok !");
+        $this->tpl->setVariable("VAR2" , "Okay");
+        $this->tpl->parse("bar");
 
-            $this->tpl->parse();
-            $output01 = $this->tpl->get();
+        $this->tpl->parse();
+        $output01 = $this->tpl->get();
 
-            $this->tpl->loadTemplatefile("bug_9853_02.tpl", true, true);
-            
-            $this->tpl->setVariable("VAR" , "Ok !");
-            $this->tpl->parse("foo.");
+        $this->tpl->loadTemplatefile("bug_9853_02.tpl", true, true);
+        
+        $this->tpl->setVariable("VAR" , "Ok !");
+        $this->tpl->parse("foo.");
 
-            $this->tpl->setVariable("VAR" , "Ok !");
-            $this->tpl->parse("foo2");
+        $this->tpl->setVariable("VAR" , "Ok !");
+        $this->tpl->parse("foo2");
 
-            $this->tpl->setVariable("VAR." , "Ok !");
-            $this->tpl->setVariable("VAR2" , "Okay");
-            $this->tpl->parse("bar");
+        $this->tpl->setVariable("VAR." , "Ok !");
+        $this->tpl->setVariable("VAR2" , "Okay");
+        $this->tpl->parse("bar");
 
-            $this->tpl->parse();
-            $output02 = $this->tpl->get();
+        $this->tpl->parse();
+        $output02 = $this->tpl->get();
 
-            $this->assertEquals($output01, $output02);
+        $this->assertEquals($output01, $output02);
     }
 }
 

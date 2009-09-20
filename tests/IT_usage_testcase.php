@@ -1,17 +1,14 @@
 <?php
+require_once 'HTML/Template/IT.php';
+require_once 'PHPUnit/Framework/TestCase.php';
 
-class IT_Usage_TestCase extends PHPUnit_TestCase
+class IT_Usage_Test extends PHPUnit_Framework_TestCase
 {
    /**
     * An HTML_Template_IT object
     * @var object
     */
     var $tpl;
-
-    function IT_Usage_TestCase($name)
-    {
-        $this->PHPUnit_TestCase($name);
-    }
 
     function setUp()
     {

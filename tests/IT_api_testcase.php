@@ -1,5 +1,8 @@
 <?php
-class IT_api_TestCase extends PHPUnit_TestCase
+require_once 'HTML/Template/IT.php';
+require_once 'PHPUnit/Framework/TestCase.php';
+
+class IT_api_Test extends PHPUnit_Framework_TestCase
 {
    /**
     * An HTML_Template_IT object
@@ -7,14 +10,9 @@ class IT_api_TestCase extends PHPUnit_TestCase
     */
     var $tpl;
 
-    function IT_api_TestCase($name)
-    {
-        $this->PHPUnit_TestCase($name);
-    }
-
     function setUp()
     {
-        $this->tpl =& new HTML_Template_IT('./templates');
+        $this->tpl = new HTML_Template_IT('./templates');
     }
 
     function tearDown()
