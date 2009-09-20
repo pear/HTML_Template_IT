@@ -376,10 +376,16 @@ class ITTest extends PHPUnit_Framework_TestCase
     }
 
     public function testShouldSetOptionsCorrectly() {
-        $this->tpl->setOption('removeEmptyBlocks', false);
+        $result = $this->tpl->setOption('removeEmptyBlocks', false);
+            
+        $this->assertFalse(PEAR::isError($result));
+
         $this->assertFalse($this->tpl->removeEmptyBlocks);
 
-        $this->tpl->setOption('removeEmptyBlocks', true);
+        $result = $this->tpl->setOption('removeEmptyBlocks', true);
+
+        $this->assertSame(PEAR::isError($result));
+
         $this->assertTrue($this->tpl->removeEmptyBlocks);
 
     }
