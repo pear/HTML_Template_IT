@@ -2,7 +2,7 @@
 require_once 'HTML/Template/IT.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 
-class IT_api_Test extends PHPUnit_Framework_TestCase
+class ITTest extends PHPUnit_Framework_TestCase
 {
    /**
     * An HTML_Template_IT object
@@ -221,6 +221,159 @@ class IT_api_Test extends PHPUnit_Framework_TestCase
         $this->assertEquals('glob:one#glob:three|glob:1|glob:2|glob:3#', $this->_stripWhitespace($this->tpl->get()));
     }
 	*/
+
+
+    /**
+     * Test for bug #9501. preg_replace treat $<NUM> and \<NUM> as
+     * backreferences. IT escapes them.
+     *
+     */
+    function testBug9501() 
+    {
+        $this->tpl->setTemplate("Test: {VALUE}");
+        $this->tpl->clearCache = true;
+
+        $this->tpl->setVariable("VALUE", '$12.34');
+        $this->assertEquals('Test: $12.34', $this->tpl->get());
+
+        $this->tpl->setVariable("VALUE", '$1256.34');
+        $this->assertEquals('Test: $1256.34', $this->tpl->get());
+
+        $this->tpl->setVariable("VALUE", '^1.34');
+        $this->assertEquals('Test: ^1.34', $this->tpl->get());
+        
+        $this->tpl->setVariable("VALUE", '$1.34');
+        $this->assertEquals('Test: $1.34', $this->tpl->get());
+     
+        $this->tpl->setVariable("VALUE", '\$12.34');
+        $this->assertEquals('Test: \$12.34', $this->tpl->get());   
+
+        $this->tpl->setVariable("VALUE", "\$12.34");
+        $this->assertEquals('Test: $12.34', $this->tpl->get());   
+
+        $this->tpl->setVariable("VALUE", "\$12.34");
+        $this->assertEquals('Test: $12.34', $this->tpl->get());   
+
+        // $12 is not parsed as a variable as it starts with a number
+        $this->tpl->setVariable("VALUE", "$12.34");
+        $this->assertEquals('Test: $12.34', $this->tpl->get());
+
+        $this->tpl->setVariable("VALUE", "\\$12.34");
+        $this->assertEquals('Test: \$12.34', $this->tpl->get());   
+
+        // taken from the bugreport
+        $word = 'Cost is $456.98';
+        $this->tpl->setVariable("VALUE", $word);
+        $this->assertEquals('Test: Cost is $456.98', $this->tpl->get());
+
+        $word = "Cost is \$" . '183.22';
+        $this->tpl->setVariable("VALUE", $word);
+        $this->assertEquals('Test: Cost is $183.22', $this->tpl->get());
+    }
+
+    function testBug9783 () 
+    {
+        $this->tpl->setTemplate("<!-- BEGIN entry -->{DATA} <!-- END entry -->", true, true);
+        $data = array ('{Bakken}', 'Soria', 'Joye');
+        foreach ($data as $name) {
+            $this->tpl->setCurrentBlock('entry');
+            $this->tpl->setVariable('DATA', $name); 
+            $this->tpl->parseCurrentBlock();
+        }
+
+        $this->assertEquals('{Bakken} Soria Joye', trim($this->tpl->get()));
+        
+    }
+
+    function testBug9853 ()
+    {
+        $this->tpl->loadTemplatefile("bug_9853_01.tpl", true, true);
+        
+        $this->tpl->setVariable("VAR" , "Ok !");
+        $this->tpl->parse("foo1");
+
+        $this->tpl->setVariable("VAR" , "Ok !");
+        $this->tpl->parse("foo2");
+
+        $this->tpl->setVariable("VAR." , "Ok !");
+        $this->tpl->setVariable("VAR2" , "Okay");
+        $this->tpl->parse("bar");
+
+        $this->tpl->parse();
+        $output01 = $this->tpl->get();
+
+        $this->tpl->loadTemplatefile("bug_9853_02.tpl", true, true);
+        
+        $this->tpl->setVariable("VAR" , "Ok !");
+        $this->tpl->parse("foo.");
+
+        $this->tpl->setVariable("VAR" , "Ok !");
+        $this->tpl->parse("foo2");
+
+        $this->tpl->setVariable("VAR." , "Ok !");
+        $this->tpl->setVariable("VAR2" , "Okay");
+        $this->tpl->parse("bar");
+
+        $this->tpl->parse();
+        $output02 = $this->tpl->get();
+
+        $this->assertEquals($output01, $output02);
+    }
+
+
+   /**
+    * Tests iterations over two blocks
+    *
+    */
+    function testBlockIteration()
+    {
+        $data = array(
+            'a',
+            array('b', array('1', '2', '3', '4')),
+            'c',
+            array('d', array('5', '6', '7'))
+        );
+        
+        $result = $this->tpl->loadTemplateFile('blockiteration.html', true, true);
+        if (PEAR::isError($result)) {
+            $this->assertTrue(false, 'Error loading template file: '. $result->getMessage());
+        }
+        foreach ($data as $value) {
+            if (is_array($value)) {
+                $this->tpl->setVariable('outer', $value[0]);
+                foreach ($value[1] as $v) {
+                    $this->tpl->setVariable('inner', $v);
+                    $this->tpl->parse('inner_block');
+                }
+            } else {
+                $this->tpl->setVariable('outer', $value);
+            }
+            $this->tpl->parse('outer_block');
+        }
+        $this->assertEquals('a#b|1|2|3|4#c#d|5|6|7#', $this->_stripWhitespace($this->tpl->get()));
+    }
+
+   /**
+    * 
+    *
+    */
+    function testTouchBlockIteration()
+    {
+        $data = array('a','b','c','d','e');
+        $result = $this->tpl->loadTemplateFile('blockiteration.html', true, true);
+        if (PEAR::isError($result)) {
+            $this->assertTrue(false, 'Error loading template file: '. $result->getMessage());
+        }
+        for ($i = 0; $i < count($data); $i++) {
+            $this->tpl->setVariable('outer', $data[$i]);
+            // the inner_block is empty and should be removed
+            if (0 == $i % 2) {
+                $this->tpl->touchBlock('inner_block');
+            }
+            $this->tpl->parse('outer_block');
+        }
+        $this->assertEquals('a|#b#c|#d#e|#', $this->_stripWhitespace($this->tpl->get()));
+    }
 }
 
 ?>
