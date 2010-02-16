@@ -228,7 +228,7 @@ class ITTest extends PHPUnit_Framework_TestCase
      * backreferences. IT escapes them.
      *
      */
-    function testBug9501() 
+    function testBug9501()
     {
         $this->tpl->setTemplate("Test: {VALUE}");
         $this->tpl->clearCache = true;
@@ -241,25 +241,25 @@ class ITTest extends PHPUnit_Framework_TestCase
 
         $this->tpl->setVariable("VALUE", '^1.34');
         $this->assertEquals('Test: ^1.34', $this->tpl->get());
-        
+
         $this->tpl->setVariable("VALUE", '$1.34');
         $this->assertEquals('Test: $1.34', $this->tpl->get());
-     
+
         $this->tpl->setVariable("VALUE", '\$12.34');
-        $this->assertEquals('Test: \$12.34', $this->tpl->get());   
+        $this->assertEquals('Test: \$12.34', $this->tpl->get());
 
         $this->tpl->setVariable("VALUE", "\$12.34");
-        $this->assertEquals('Test: $12.34', $this->tpl->get());   
+        $this->assertEquals('Test: $12.34', $this->tpl->get());
 
         $this->tpl->setVariable("VALUE", "\$12.34");
-        $this->assertEquals('Test: $12.34', $this->tpl->get());   
+        $this->assertEquals('Test: $12.34', $this->tpl->get());
 
         // $12 is not parsed as a variable as it starts with a number
         $this->tpl->setVariable("VALUE", "$12.34");
         $this->assertEquals('Test: $12.34', $this->tpl->get());
 
         $this->tpl->setVariable("VALUE", "\\$12.34");
-        $this->assertEquals('Test: \$12.34', $this->tpl->get());   
+        $this->assertEquals('Test: \$12.34', $this->tpl->get());
 
         // taken from the bugreport
         $word = 'Cost is $456.98';
@@ -271,24 +271,24 @@ class ITTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Test: Cost is $183.22', $this->tpl->get());
     }
 
-    function testBug9783 () 
+    function testBug9783 ()
     {
         $this->tpl->setTemplate("<!-- BEGIN entry -->{DATA} <!-- END entry -->", true, true);
         $data = array ('{Bakken}', 'Soria', 'Joye');
         foreach ($data as $name) {
             $this->tpl->setCurrentBlock('entry');
-            $this->tpl->setVariable('DATA', $name); 
+            $this->tpl->setVariable('DATA', $name);
             $this->tpl->parseCurrentBlock();
         }
 
         $this->assertEquals('{Bakken} Soria Joye', trim($this->tpl->get()));
-        
+
     }
 
     function testBug9853 ()
     {
         $this->tpl->loadTemplatefile("bug_9853_01.tpl", true, true);
-        
+
         $this->tpl->setVariable("VAR" , "Ok !");
         $this->tpl->parse("foo1");
 
@@ -303,7 +303,7 @@ class ITTest extends PHPUnit_Framework_TestCase
         $output01 = $this->tpl->get();
 
         $this->tpl->loadTemplatefile("bug_9853_02.tpl", true, true);
-        
+
         $this->tpl->setVariable("VAR" , "Ok !");
         $this->tpl->parse("foo.");
 
@@ -333,7 +333,7 @@ class ITTest extends PHPUnit_Framework_TestCase
             'c',
             array('d', array('5', '6', '7'))
         );
-        
+
         $result = $this->tpl->loadTemplateFile('blockiteration.html', true, true);
         if (PEAR::isError($result)) {
             $this->assertTrue(false, 'Error loading template file: '. $result->getMessage());
@@ -354,7 +354,7 @@ class ITTest extends PHPUnit_Framework_TestCase
     }
 
    /**
-    * 
+    *
     *
     */
     function testTouchBlockIteration()
@@ -377,14 +377,14 @@ class ITTest extends PHPUnit_Framework_TestCase
 
     public function testShouldSetOptionsCorrectly() {
         $result = $this->tpl->setOption('removeEmptyBlocks', false);
-            
+
         $this->assertFalse(PEAR::isError($result));
 
         $this->assertFalse($this->tpl->removeEmptyBlocks);
 
         $result = $this->tpl->setOption('removeEmptyBlocks', true);
 
-        $this->assertSame(PEAR::isError($result));
+        $this->assertFalse(PEAR::isError($result));
 
         $this->assertTrue($this->tpl->removeEmptyBlocks);
 

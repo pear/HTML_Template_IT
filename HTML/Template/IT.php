@@ -438,6 +438,12 @@ class HTML_Template_IT
      */
     function setOption($option, $value)
     {
+        switch ($option) {
+            case 'removeEmptyBlocks':
+                $this->removeEmptyBlocks = $value;
+                return IT_OK;
+        }
+
         if (array_key_exists($option, $this->_options)) {
             $this->_options[$option] = $value;
             return IT_OK;

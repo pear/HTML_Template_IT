@@ -32,10 +32,10 @@ class ITXTest extends ITTest
     function testPlaceholderExists()
     {
         $this->tpl->setTemplate('{var}');
-        $this->assertTrue($this->tpl->placeholderExists('var'), 'Existing placeholder \'var\' reported as nonexistant');
-        $this->assertTrue(!$this->tpl->placeholderExists('foobar'), 'Nonexistant placeholder \'foobar\' reported as existing');
-        $this->assertTrue($this->tpl->placeholderExists('var', '__global__'), 'Existing in block \'__global__\' placeholder \'var\' reported as nonexistant');
-        $this->assertTrue(!$this->tpl->placeholderExists('foobar', '__global__'), 'Nonexistant in block \'__global__\' placeholder \'foobar\' reported as existing');
+        $this->assertSame("__global__", $this->tpl->placeholderExists('var'), 'Existing placeholder \'var\' reported as nonexistant');
+        $this->assertSame("", $this->tpl->placeholderExists('foobar'), 'Nonexistant placeholder \'foobar\' reported as existing');
+        $this->assertSame("__global__", $this->tpl->placeholderExists('var', '__global__'), 'Existing in block \'__global__\' placeholder \'var\' reported as nonexistant');
+        $this->assertSame("", $this->tpl->placeholderExists('foobar', '__global__'), 'Nonexistant in block \'__global__\' placeholder \'foobar\' reported as existing');
     }
 
     function testBlockExists()
