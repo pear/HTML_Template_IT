@@ -51,11 +51,11 @@ you to modify some parts of your layout easily.</description>
   <email>ulf.wendel@phpdoc.de</email>
   <active>no</active>
  </developer>
- <date>2010-02-15</date>
- <time>23:25:10</time>
+ <date>2010-02-16</date>
+ <time>02:12:45</time>
  <version>
-  <release>1.3.0a1</release>
-  <api>1.2.1</api>
+  <release>1.3.0a2</release>
+  <api>1.3.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -63,18 +63,7 @@ you to modify some parts of your layout easily.</description>
  </stability>
  <license>Modified BSD license</license>
  <notes>
-- Add support for pear package 2.0 format
-- Remove support for pear package 1.0 format
-- Fix bug #9501, doller signs disapear if preg_match is used.
-- Fix bug #9783, don&apos;t remove variable which values follow the variable pattern
-  To allow backwards compatbility an option preserve_input is added.
-  If it is false, the old behaviour will be used and therefore those values will be deleted.
-  Default is true, so new behaviour.
-- Fix bug #9853, problems with dots in placeholders or blocknames    
-- Add option &apos;preserve_input&apos; to only remove unkown variable that were present during setTemplate or lodaTemplatefile
-  which is the behaviour before 1.3.0a1
-- Fix bug #13935 - docblock is wrong
-- Improved PHPCS (Request #15039)
+Fixed unit tests
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -83,12 +72,12 @@ you to modify some parts of your layout easily.</description>
    <file baseinstalldir="HTML/Template" md5sum="43a3535aa4d5e9df400babae53d82a08" name="examples/templates/addblockfile_list.tpl.htm" role="doc" />
    <file baseinstalldir="HTML/Template" md5sum="16f4927420fa169875167a4874e7add7" name="examples/templates/addblockfile_main.tpl.htm" role="doc" />
    <file baseinstalldir="HTML/Template" md5sum="2c851fcec88007eef66c28a9d8f10ceb" name="examples/templates/main.tpl.htm" role="doc" />
-   <file baseinstalldir="/" md5sum="fc07ff1e67ceb7257f6a617cafa4b2db" name="HTML/Template/IT.php" role="php" />
+   <file baseinstalldir="/" md5sum="6c1a921f635b6d6b4a1eff82382bc169" name="HTML/Template/IT.php" role="php" />
    <file baseinstalldir="/" md5sum="16b0300b5fbe3be7a1df976ce5d27c4f" name="HTML/Template/ITX.php" role="php" />
-   <file baseinstalldir="/" md5sum="d6fbd34fbc236df1925d297bb369c7b7" name="HTML/Template/IT_Error.php" role="php" />
+   <file baseinstalldir="/" md5sum="484d2aa6a504a351a1d3e2b8bb39612d" name="HTML/Template/IT_Error.php" role="php" />
    <file baseinstalldir="/" md5sum="e576a94c06b323e4cfc6bcf9dda017c2" name="tests/AllTests.php" role="test" />
-   <file baseinstalldir="/" md5sum="5149697d5589b4ab7df18291d6917f5a" name="tests/ITTest.php" role="test" />
-   <file baseinstalldir="/" md5sum="98f7195b35c6a15392bb646d4989acc4" name="tests/ITXTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="ae4394f93f790db40b38b59a8787003d" name="tests/ITTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="80139a8b443488dac801fae748b6f2c2" name="tests/ITXTest.php" role="test" />
    <file baseinstalldir="HTML/Template" md5sum="e50de49b74a1d96bb77ddae2d0abdfc3" name="tests/templates/addblock.html" role="test" />
    <file baseinstalldir="HTML/Template" md5sum="22e56437378e53d08ba07d3dd2aa4b85" name="tests/templates/blockiteration.html" role="test" />
    <file baseinstalldir="HTML/Template" md5sum="4173bf97eec43787532e247ef9b2611a" name="tests/templates/blocks.html" role="test" />
@@ -276,6 +265,21 @@ you to modify some parts of your layout easily.</description>
   which is the behaviour before 1.3.0a1
 - Fix bug #13935 - docblock is wrong
 - Improved PHPCS (Request #15039)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.0a2</release>
+    <api>1.3.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-02-16</date>
+   <license>Modified BSD license</license>
+   <notes>
+Fixed unit tests
    </notes>
   </release>
  </changelog>
