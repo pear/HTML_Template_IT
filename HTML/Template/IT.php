@@ -36,6 +36,7 @@ define('IT_TPL_NOT_FOUND', -2);
 define('IT_BLOCK_NOT_FOUND', -3);
 define('IT_BLOCK_DUPLICATE', -4);
 define('IT_UNKNOWN_OPTION', -6);
+
 /**
  * Integrated Template - IT
  *
