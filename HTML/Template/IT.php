@@ -725,6 +725,26 @@ class HTML_Template_IT
     } // end func parseCurrentBlock
 
     /**
+     * Checks to see if a placeholder exists within a block (and its children)
+     *
+     * @access public
+     * @return bool
+     */
+    function checkPlaceholderExists($blockname, $placeholder) {
+        if (isset($this->blockvariables[$blockname][$placeholder])) {
+            return true;
+        }
+        if (isset($this->blockinner[$blockname])) {
+            foreach ($this->blockinner[$blockname] as $block) {
+                if ($this->checkPlaceholderExists($block, $placeholder)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    } // end func checkPlaceholderExists
+
+    /**
      * Sets a variable value.
      *
      * The function can be used eighter like setVariable( "varname", "value")
@@ -742,9 +762,13 @@ class HTML_Template_IT
     function setVariable($variable, $value = '')
     {
         if (is_array($variable)) {
-            $this->variableCache = array_merge($this->variableCache, $variable);
+            foreach ($variable as $key => $value) {
+                $this->setVariable($key, $value);
+            }
         } else {
-            $this->variableCache[$variable] = $value;
+            if ($this->checkPlaceholderExists($this->currentBlock, $variable)) {
+                $this->variableCache[$variable] = $value;
+            }
         }
     } // end func setVariable
 
