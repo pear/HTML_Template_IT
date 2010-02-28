@@ -389,6 +389,28 @@ class ITTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->tpl->removeEmptyBlocks);
 
     }
+
+
+    public function testPlaceholderReplacementScope() { 
+        $result = $this->tpl->loadTemplateFile('placeholderreplacementscope.html', true, true);
+       
+        if (PEAR::isError($result)) {
+            $this->fail('Error loading template file: ' . $result->getMessage());
+        }
+
+
+        $this->tpl->setCurrentBlock('foo');
+        $this->tpl->setVariable('var1','test');
+        $this->tpl->parseCurrentBlock();
+        $this->tpl->setCurrentBlock('bar');
+        $this->tpl->setVariable('var1','not');
+        $this->tpl->setVariable('var2','good');
+        $this->tpl->parseCurrentBlock();
+
+        $actual = $this->_stripWhitespace($this->tpl->get());
+        $this->assertEquals('testgood', $actual);
+    }
+
 }
 
 ?>
