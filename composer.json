@@ -1,0 +1,51 @@
+{
+    "authors": [
+        {
+            "email": "gregorycu@php.net",
+            "name": "Gregory Currie",
+            "role": "Lead"
+        },
+        {
+            "email": "pajoye@php.net",
+            "name": "Pierre-Alain Joye",
+            "role": "Lead"
+        },
+        {
+            "email": "dsp@php.net",
+            "name": "David Soria Parra",
+            "role": "Lead"
+        },
+        {
+            "email": "thorstenr@php.net",
+            "name": "Thorsten Rinne",
+            "role": "Developer"
+        },
+        {
+            "email": "ulf.wendel@phpdoc.de",
+            "name": "Ulf Wendel",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "HTML": "./"
+        }
+    },
+    "description": "More info available on: http://pear.php.net/package/HTML_Template_IT",
+    "include-path": [
+        "./"
+    ],
+    "license": "Modified BSD license",
+    "name": "pear/html_template_it",
+    "support": {
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=HTML_Template_IT",
+        "source": "https://github.com/pear/HTML_Template_IT"
+    },
+    "type": "library",
+    "require": {
+        "pear/pear_exception": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
