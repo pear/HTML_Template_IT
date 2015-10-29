@@ -36,10 +36,10 @@
         "./"
     ],
     "license": "Modified BSD license",
-    "name": "pear/html_template_it",
+    "name": "elma/html_template_it",
     "support": {
         "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=HTML_Template_IT",
-        "source": "https://github.com/pear/HTML_Template_IT"
+        "source": "https://github.com/Elma/HTML_Template_IT"
     },
     "type": "library",
     "require": {
