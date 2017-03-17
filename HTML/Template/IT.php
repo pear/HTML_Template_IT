@@ -407,7 +407,7 @@ class HTML_Template_IT
      * @see      setRoot()
      * @access   public
      */
-    function HTML_Template_IT($root = '', $options = null)
+    function __construct($root = '', $options = null)
     {
         if (!is_null($options)) {
             $this->setOptions($options);
