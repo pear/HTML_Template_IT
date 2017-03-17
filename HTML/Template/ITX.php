@@ -148,6 +148,14 @@ class HTML_Template_ITX extends HTML_Template_IT
     } // end func constructor
 
     /**
+     * Dont break the php4 constructor
+     */
+    function HTML_Template_ITX($root = '')
+    {
+        self::__construct($root);
+    }
+
+    /**
      * Clears all datafields of the object and rebuild the internal blocklist
      *
      * LoadTemplatefile() and setTemplate() automatically call this function

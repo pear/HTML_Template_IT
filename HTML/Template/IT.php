@@ -427,6 +427,13 @@ class HTML_Template_IT
         $this->setRoot($root);
     } // end constructor
 
+    /**
+     * Dont break the php4 constructor
+     */
+    function HTML_Template_IT($root = '', $options = null)
+    {
+        self::__construct($root, $options);
+    }
 
     /**
      * Sets the option for the template class
