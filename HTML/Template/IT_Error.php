@@ -60,6 +60,14 @@ class IT_Error extends PEAR_Error
     {
         $this->PEAR_Error(sprintf("%s [%s on line %d].", $msg, $file, $line)); 
     } // end func IT_Error
-  
+
+    /**
+     * Dont break the php4 constructor
+     */
+    function IT_Error($msg, $file = __FILE__, $line = __LINE__)
+    {
+        self::__construct($msg, $file, $line);
+    }
+
 } // end class IT_Error
 ?>
