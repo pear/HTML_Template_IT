@@ -136,7 +136,7 @@ class HTML_Template_ITX extends HTML_Template_IT
      * @access public
      * @see    HTML_Template_IT()
      */
-    function HTML_Template_ITX($root = '')
+     function __construct($root = '')
     {
 
         $this->checkblocknameRegExp = '@' . $this->blocknameRegExp . '@';
@@ -144,7 +144,7 @@ class HTML_Template_ITX extends HTML_Template_IT
         $this->functionRegExp = '@' . $this->functionPrefix . '(' .
                                 $this->functionnameRegExp . ')\s*\(@sm';
 
-        $this->HTML_Template_IT($root);
+        parent::__construct($root);
     } // end func constructor
 
     /**

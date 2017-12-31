@@ -6,6 +6,10 @@
  * @version CVS: $Id$
  */
 
+// Show all errors and warnings
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once 'HTML/Template/ITX.php';
 
 $data = array (array ('packagename'=>'mypackage',
