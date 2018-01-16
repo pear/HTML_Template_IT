@@ -11,12 +11,12 @@ function _uppercaseCallback($ary)
 
 class Callbacks
 {
-    function _lowercaseCallback($ary)
+    static function _lowercaseCallback($ary)
     {
         return strtolower($ary[0]);
     }
 
-    function _numberFormatCallback($float, $decimals)
+    static function _numberFormatCallback($float, $decimals)
     {
         return number_format($float, $decimals);
     }
