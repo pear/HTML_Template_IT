@@ -6,10 +6,11 @@ php:
   - 5.6
   - 7.0
   - 7.1
+  - 7.2
 script:
   - pear list
   - pear channel-update pear.php.net
-  - pear upgrade pear/pear-1.10.1
+  - pear upgrade --force pear/pear
   - pear list
   - pear install --force package.xml
   - pear list
