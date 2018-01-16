@@ -43,9 +43,10 @@
     },
     "type": "library",
     "require": {
-        "pear/pear_exception": "*"
+        "php": ">=5.4",
+        "pear/pear-core-minimal": "^1.10.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "^3"
     }
 }
