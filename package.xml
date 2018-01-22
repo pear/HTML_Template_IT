@@ -11,7 +11,7 @@ There are two classes to use for templating. HTML_Template_IT is used for basic 
   <name>Gregory Currie</name>
   <user>gregorycu</user>
   <email>gregorycu@php.net</email>
-  <active>yes</active>
+  <active>no</active>
  </lead>
  <lead>
   <name>Pierre-Alain Joye</name>
@@ -37,10 +37,9 @@ There are two classes to use for templating. HTML_Template_IT is used for basic 
   <email>ulf.wendel@phpdoc.de</email>
   <active>no</active>
  </developer>
- <date>2010-03-10</date>
- <time>17:00:00</time>
+ <date>2018-01-22</date>
  <version>
-  <release>1.3.0</release>
+  <release>1.3.1</release>
   <api>1.3.0</api>
  </version>
  <stability>
@@ -49,23 +48,7 @@ There are two classes to use for templating. HTML_Template_IT is used for basic 
  </stability>
  <license>Modified BSD license</license>
  <notes>
-Changes since last stable release (1.2.1):
-- Add support for pear package 2.0 format
-- Remove support for pear package 1.0 format
-- Fix bug #9501, doller signs disapear if preg_match is used.
-- Fix bug #9783, don&apos;t remove variable which values follow the variable pattern
-  To allow backwards compatbility an option preserve_input is added.
-  If it is false, the old behaviour will be used and therefore those values will be deleted.
-  Default is true, so new behaviour.
-- Fix bug #9853, problems with dots in placeholders or blocknames
-- Fix bug #13935, docblock is wrong
-- Fix bug #17129
-- Add option &apos;preserve_input&apos; to only remove unkown variable that were present
-  during setTemplate or loadTemplatefile
-  which is the behaviour before 1.3.0a1
-- Improved PHPCS (Request #15039)
-- Added unit tests
-- Fixed unit tests
+- PR #2: Fixes for deprecated code
  </notes>
  <contents>
   <dir name="/">
@@ -330,6 +313,21 @@ Changes since last stable release (1.2.1):
 - Improved PHPCS (Request #15039)
 - Added unit tests
 - Fixed unit tests
+   </notes>
+  </release>
+  <release>
+   <version>
+   <release>1.3.1</release>
+   <api>1.3.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2018-01-22</date>
+   <license>Modified BSD license</license>
+   <notes>
+- PR #2: Fixes for deprecated code
    </notes>
   </release>
  </changelog>
