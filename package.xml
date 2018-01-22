@@ -46,7 +46,7 @@ There are two classes to use for templating. HTML_Template_IT is used for basic 
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license>Modified BSD license</license>
+ <license>BSD-3-Clause</license>
  <notes>
 - PR #2: Fixes for deprecated code
  </notes>
@@ -325,7 +325,7 @@ Changes since last stable release (1.2.1):
     <api>stable</api>
    </stability>
    <date>2018-01-22</date>
-   <license>Modified BSD license</license>
+   <license>BSD-3-Clause</license>
    <notes>
 - PR #2: Fixes for deprecated code
    </notes>

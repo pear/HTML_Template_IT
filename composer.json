@@ -35,7 +35,7 @@
     "include-path": [
         "./"
     ],
-    "license": "Modified BSD license",
+    "license": "BSD-3-Clause",
     "name": "pear/html_template_it",
     "support": {
         "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=HTML_Template_IT",
