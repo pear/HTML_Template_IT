@@ -407,7 +407,7 @@ class HTML_Template_IT
      * @see      setRoot()
      * @access   public
      */
-    function HTML_Template_IT($root = '', $options = null)
+     function __construct($root = '', $options = null)
     {
         if (!is_null($options)) {
             $this->setOptions($options);
@@ -1088,9 +1088,9 @@ class HTML_Template_IT
         $content = fread($fh, $fsize);
         fclose($fh);
 
-        return preg_replace(
-            "#<!-- INCLUDE (.*) -->#ime",
-            "\$this->getFile('\\1')",
+        return preg_replace_callback(
+            "#<!-- INCLUDE (.*) -->#im",
+            function ($m) { return $this->getFile($m[1]); },
             $content
         );
     } // end func getFile
