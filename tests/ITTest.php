@@ -1,6 +1,5 @@
 <?php
 require_once 'HTML/Template/IT.php';
-require_once 'PHPUnit/Framework/TestCase.php';
 
 class ITTest extends PHPUnit_Framework_TestCase
 {
