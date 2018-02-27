@@ -1,6 +1,5 @@
 <?php
 require_once 'HTML/Template/ITX.php';
-require_once 'PHPUnit/Framework/TestCase.php';
 
 require_once 'ITTest.php';
 
