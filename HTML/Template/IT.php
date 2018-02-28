@@ -869,7 +869,7 @@ class HTML_Template_IT
     /**
      * Sets the template.
      *
-     * You can eighter load a template file from disk with
+     * You can either load a template file from disk with
      * LoadTemplatefile() or set the template manually using this function.
      *
      * @param string $template               template content
