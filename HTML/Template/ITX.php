@@ -173,7 +173,7 @@ class HTML_Template_ITX extends HTML_Template_IT
      * Replaces an existing block with new content.
      *
      * This function will replace a block of the template and all blocks
-     * contained in the replaced block and add a new block insted, means
+     * contained in the replaced block and add a new block instead, means
      * you can dynamically change your template.
      *
      * Note that changing the template structure violates one of the IT[X]
@@ -373,7 +373,7 @@ class HTML_Template_ITX extends HTML_Template_IT
      *
      * @return   string  Name of the (first) block that contains
      *                   the specified placeholder.
-     *                   If the placeholder was not found or an error occured
+     *                   If the placeholder was not found or an error occurred
      *                   an empty string is returned.
      * @throws   IT_Error
      * @access   public
@@ -610,7 +610,7 @@ class HTML_Template_ITX extends HTML_Template_IT
     } // end func getBlocklist
 
     /**
-     * Checks wheter a block exists.
+     * Checks whether a block exists.
      *
      * @param string $blockname Blockname
      *
@@ -647,7 +647,7 @@ class HTML_Template_ITX extends HTML_Template_IT
     } // end func getBlockvariables
 
     /**
-     * Checks wheter a block variable exists.
+     * Checks whether a block variable exists.
      *
      * @param string $block    Blockname
      * @param string $variable Variablename
@@ -858,8 +858,8 @@ class HTML_Template_ITX extends HTML_Template_IT
      * calls die() depending on the flags
      *
      * @param string $message Warning
-     * @param string $file    File where the warning occured
-     * @param int    $line    Linenumber where the warning occured
+     * @param string $file    File where the warning occurred
+     * @param int    $line    Linenumber where the warning occurred
      *
      * @see      $warn, $printWarning, $haltOnWarning
      * @access   private
