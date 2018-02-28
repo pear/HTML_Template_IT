@@ -748,7 +748,7 @@ class HTML_Template_IT
     /**
      * Sets a variable value.
      *
-     * The function can be used eighter like setVariable( "varname", "value")
+     * The function can be used either like setVariable( "varname", "value")
      * or with one array $variables["varname"] = "value"
      * given setVariable($variables) quite like phplib templates set_var().
      *
