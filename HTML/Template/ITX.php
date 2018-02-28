@@ -11,7 +11,7 @@
  * with this package in the file LICENSE, and is available through
  * the world-wide-web at
  * http://www.opensource.org/licenses/bsd-license.php
- * If you did not receive a copy of the new BSDlicense and are unable
+ * If you did not receive a copy of the new BSD license and are unable
  * to obtain it through the world-wide-web, please send a note to
  * pajoye@php.net so we can mail you a copy immediately.
  *
@@ -36,7 +36,7 @@ require_once 'HTML/Template/IT_Error.php';
 *
 * With this class you get the full power of the phplib template class.
 * You may have one file with blocks in it but you have as well one main file
-* and multiple files one for each block. This is quite usefull when you have
+* and multiple files one for each block. This is quite useful when you have
 * user configurable websites. Using blocks not in the main template allows
 * you to modify some parts of your layout easily.
 *
@@ -173,7 +173,7 @@ class HTML_Template_ITX extends HTML_Template_IT
      * Replaces an existing block with new content.
      *
      * This function will replace a block of the template and all blocks
-     * contained in the replaced block and add a new block insted, means
+     * contained in the replaced block and add a new block instead, means
      * you can dynamically change your template.
      *
      * Note that changing the template structure violates one of the IT[X]
@@ -373,7 +373,7 @@ class HTML_Template_ITX extends HTML_Template_IT
      *
      * @return   string  Name of the (first) block that contains
      *                   the specified placeholder.
-     *                   If the placeholder was not found or an error occured
+     *                   If the placeholder was not found or an error occurred
      *                   an empty string is returned.
      * @throws   IT_Error
      * @access   public
@@ -493,7 +493,7 @@ class HTML_Template_ITX extends HTML_Template_IT
      *
      * This is an absolutely evil feature. If your application makes heavy
      * use of such callbacks and you're even implementing if-then etc. on
-     * the level of a template engine you're reiventing the wheel... - that's
+     * the level of a template engine you're reinventing the wheel... - that's
      * actually how PHP came into life. Anyway, sometimes it's handy.
      *
      * Consider also using XML/XSLT or native PHP. And please do not push
@@ -528,7 +528,7 @@ class HTML_Template_ITX extends HTML_Template_IT
      * @return     boolean   False on failure.
      * @throws     IT_Error
      * @access     public
-     * @deprecated The $callbackobject parameter is depricated since
+     * @deprecated The $callbackobject parameter is deprecated since
      *             version 1.2 and might be dropped in further versions.
      */
     function setCallbackFunction($tplfunction, $callbackfunction,
@@ -567,7 +567,7 @@ class HTML_Template_ITX extends HTML_Template_IT
     } // end func setCallbackFunctiontable
 
     /**
-     * Recursively removes all data assiciated with a block, including
+     * Recursively removes all data associated with a block, including
      * all inner blocks
      *
      * @param string $block block to be removed
@@ -610,7 +610,7 @@ class HTML_Template_ITX extends HTML_Template_IT
     } // end func getBlocklist
 
     /**
-     * Checks wheter a block exists.
+     * Checks whether a block exists.
      *
      * @param string $blockname Blockname
      *
@@ -647,7 +647,7 @@ class HTML_Template_ITX extends HTML_Template_IT
     } // end func getBlockvariables
 
     /**
-     * Checks wheter a block variable exists.
+     * Checks whether a block variable exists.
      *
      * @param string $block    Blockname
      * @param string $variable Variablename
@@ -712,7 +712,7 @@ class HTML_Template_ITX extends HTML_Template_IT
     } // end func buildFunctionlist
 
     /**
-     * Truncates the given code from the first occurence of
+     * Truncates the given code from the first occurrence of
      * $delimiter but ignores $delimiter enclosed by " or '.
      *
      * @param string $code      The code which should be parsed
@@ -858,8 +858,8 @@ class HTML_Template_ITX extends HTML_Template_IT
      * calls die() depending on the flags
      *
      * @param string $message Warning
-     * @param string $file    File where the warning occured
-     * @param int    $line    Linenumber where the warning occured
+     * @param string $file    File where the warning occurred
+     * @param int    $line    Linenumber where the warning occurred
      *
      * @see      $warn, $printWarning, $haltOnWarning
      * @access   private
