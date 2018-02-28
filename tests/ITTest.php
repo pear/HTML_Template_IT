@@ -176,28 +176,6 @@ class ITTest extends PHPUnit_Framework_TestCase
     *
     */
     /*
-    function testHideBlock()
-    {
-        if (!$this->_methodExists('hideBlock')) {
-            return;
-        }
-        $result = $this->tpl->loadTemplateFile('blockiteration.html', false, true);
-        if (PEAR::isError($result)) {
-            $this->assertTrue(false, 'Error loading template file: '. $result->getMessage());
-        }
-        $this->tpl->setVariable(array(
-            'outer' => 'data',
-            'inner' => 'stuff'
-        ));
-        // inner_block is not empty, but should be removed nonetheless
-        $this->tpl->hideBlock('inner_block');
-        $this->assertEquals('data#', $this->_stripWhitespace($this->tpl->get()));
-    }
-	*/
-   /**
-    *
-    */
-    /*
 	function testSetGlobalVariable()
     {
         if (!$this->_methodExists('setGlobalVariable')) {
