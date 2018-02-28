@@ -288,7 +288,7 @@ class HTML_Template_IT
      *
      * Now if there is no replacement done in such a block the block will
      * be recognized as "empty" and by default ($removeEmptyBlocks = true) be
-     * stripped off. To avoid thisyou can now call touchBlock() to avoid this.
+     * stripped off. To avoid this you can now call touchBlock() to avoid this.
      *
      * The array $touchedBlocks stores a list of touched block which must not
      * be removed even if they are empty.
@@ -748,7 +748,7 @@ class HTML_Template_IT
     /**
      * Sets a variable value.
      *
-     * The function can be used eighter like setVariable( "varname", "value")
+     * The function can be used either like setVariable( "varname", "value")
      * or with one array $variables["varname"] = "value"
      * given setVariable($variables) quite like phplib templates set_var().
      *

@@ -53,8 +53,8 @@ class IT_Error extends PEAR_Error
      * Creates an cache error object.
      * 
      * @param string $msg  error message
-     * @param string $file file where the error occured
-     * @param string $line linenumber where the error occured
+     * @param string $file file where the error occurred
+     * @param string $line linenumber where the error occurred
      */
     function __construct($msg, $file = __FILE__, $line = __LINE__)
     {
