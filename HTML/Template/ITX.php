@@ -493,7 +493,7 @@ class HTML_Template_ITX extends HTML_Template_IT
      *
      * This is an absolutely evil feature. If your application makes heavy
      * use of such callbacks and you're even implementing if-then etc. on
-     * the level of a template engine you're reiventing the wheel... - that's
+     * the level of a template engine you're reinventing the wheel... - that's
      * actually how PHP came into life. Anyway, sometimes it's handy.
      *
      * Consider also using XML/XSLT or native PHP. And please do not push
@@ -528,7 +528,7 @@ class HTML_Template_ITX extends HTML_Template_IT
      * @return     boolean   False on failure.
      * @throws     IT_Error
      * @access     public
-     * @deprecated The $callbackobject parameter is depricated since
+     * @deprecated The $callbackobject parameter is deprecated since
      *             version 1.2 and might be dropped in further versions.
      */
     function setCallbackFunction($tplfunction, $callbackfunction,
@@ -567,7 +567,7 @@ class HTML_Template_ITX extends HTML_Template_IT
     } // end func setCallbackFunctiontable
 
     /**
-     * Recursively removes all data assiciated with a block, including
+     * Recursively removes all data associated with a block, including
      * all inner blocks
      *
      * @param string $block block to be removed
@@ -712,7 +712,7 @@ class HTML_Template_ITX extends HTML_Template_IT
     } // end func buildFunctionlist
 
     /**
-     * Truncates the given code from the first occurence of
+     * Truncates the given code from the first occurrence of
      * $delimiter but ignores $delimiter enclosed by " or '.
      *
      * @param string $code      The code which should be parsed
