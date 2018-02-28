@@ -35,7 +35,7 @@ For a local composer installation:
 
 To add as a dependency to your composer-managed application:
 
-`$composer require pear/html_template_it`
+`$ composer require pear/html_template_it`
 
 
 ## Tests
