@@ -536,7 +536,7 @@ class HTML_Template_ITX extends HTML_Template_IT
     $expandCallbackParameters = false) {
         if ($tplfunction == '' || $callbackfunction == '') {
             return new IT_Error("No template function "."('$tplfunction')".
-                                " and/or no callback function ('$callback') given.",
+                                " and/or no callback function ('$callbackfunction') given.",
                                 __FILE__, __LINE__);
         }
         $this->callback[$tplfunction] = array(
