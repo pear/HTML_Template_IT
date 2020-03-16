@@ -68,7 +68,6 @@ There are two classes to use for templating. HTML_Template_IT is used for basic 
    <file name="tests/templates/blocks.html" role="test" />
    <file name="tests/templates/bug_9853_01.tpl" role="test" />
    <file name="tests/templates/bug_9853_02.tpl" role="test" />
-   <file name="tests/templates/globals.html" role="test" />
    <file name="tests/templates/include.html" role="test" />
    <file name="tests/templates/loadtemplatefile.html" role="test" />
    <file name="tests/templates/placeholderreplacementscope.html" role="test" />
