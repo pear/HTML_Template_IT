@@ -300,14 +300,6 @@ class HTML_Template_IT
      var $touchedBlocks = array();
 
     /**
-     * List of blocks which should not be shown even if not "empty"
-     * @var  array    $_hiddenBlocks
-     * @see  hideBlock(), $removeEmptyBlocks
-     * @access private
-     */
-    var $_hiddenBlocks = array();
-
-    /**
      * Variable cache.
      *
      * Variables get cached before any replacement is done.
