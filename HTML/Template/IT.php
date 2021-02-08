@@ -1095,9 +1095,13 @@ class HTML_Template_IT
         $content = fread($fh, $fsize);
         fclose($fh);
 
+        $callback = function($matches) {
+            return $this->getFile($matches[1]);
+        };
+
         return preg_replace_callback(
             "#<!-- INCLUDE (.*) -->#im",
-            create_function('$matches', 'return $this->getFile($matches[1]);'),
+            $callback,
             $content
         );
     } // end func getFile
