@@ -1,6 +1,6 @@
 <?php
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'HTML_Template_IT_AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'AllTests::main');
 }
 
 require_once 'PHPUnit/TextUI/TestRunner.php';
@@ -11,7 +11,7 @@ require_once 'ITTest.php';
 require_once 'ITXTest.php';
 
 
-class HTML_Template_IT_AllTests
+class AllTests
 {
     public static function main()
     {
@@ -30,7 +30,7 @@ class HTML_Template_IT_AllTests
     }
 }
 
-if (PHPUnit_MAIN_METHOD == 'HTML_Template_IT_AllTests::main') {
-    HTML_Template_IT_AllTests::main();
+if (PHPUnit_MAIN_METHOD == 'AllTests::main') {
+    AllTests::main();
 }
 ?>
