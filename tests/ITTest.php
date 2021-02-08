@@ -1,6 +1,5 @@
 <?php
 require_once 'HTML/Template/IT.php';
-require_once 'PHPUnit/Framework/TestCase.php';
 
 class ITTest extends PHPUnit_Framework_TestCase
 {
@@ -391,9 +390,9 @@ class ITTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testPlaceholderReplacementScope() { 
+    public function testPlaceholderReplacementScope() {
         $result = $this->tpl->loadTemplateFile('placeholderreplacementscope.html', true, true);
-       
+
         if (PEAR::isError($result)) {
             $this->fail('Error loading template file: ' . $result->getMessage());
         }
