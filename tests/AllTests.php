@@ -11,15 +11,17 @@ require_once 'ITXTest.php';
 
 class HTML_Template_IT_AllTests
 {
+    private static $runner;
+
     public static function main()
     {
-
-        PHPUnit_TextUI_TestRunner::run(self::suite());
+        $runner = new PHPUnit\TextUI\TestRunner;
+        $runner->run(self::suite());
     }
 
     public static function suite()
     {
-        $suite = new PHPUnit_Framework_TestSuite('HTML_Template_IT tests');
+        $suite = new PHPUnit\Framework\TestSuite('HTML_Template_IT tests');
 
         $suite->addTestSuite('ITTest');
         $suite->addTestSuite('ITXTest');
