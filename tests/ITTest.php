@@ -1,7 +1,9 @@
 <?php
 require_once 'HTML/Template/IT.php';
 
-class ITTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ITTest extends TestCase
 {
    /**
     * An HTML_Template_IT object
@@ -9,12 +11,12 @@ class ITTest extends PHPUnit_Framework_TestCase
     */
     var $tpl;
 
-    function setUp()
+    function setUp(): void
     {
         $this->tpl = new HTML_Template_IT(dirname(__FILE__) . '/templates');
     }
 
-    function tearDown()
+    function tearDown(): void
     {
         unset($this->tpl);
     }
