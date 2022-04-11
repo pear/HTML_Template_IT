@@ -47,5 +47,10 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-v1.4.0-rc": "1.4.x-dev"
+        }
     }
 }
