@@ -10,12 +10,12 @@ function _uppercaseCallback($ary)
 
 class Callbacks
 {
-    function _lowercaseCallback($ary)
+    public static function _lowercaseCallback($ary)
     {
         return strtolower($ary[0]);
     }
 
-    function _numberFormatCallback($float, $decimals)
+    public static function _numberFormatCallback($float, $decimals)
     {
         return number_format($float, $decimals);
     }
@@ -23,7 +23,7 @@ class Callbacks
 
 class ITXTest extends ITTest
 {
-    function setUp()
+    function setUp(): void
     {
         $this->tpl = new HTML_Template_ITX(dirname(__FILE__) . '/templates');
     }
