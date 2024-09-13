@@ -1,7 +1,10 @@
 <?php
+
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
+
 require_once 'HTML/Template/IT.php';
 
-class ITTest extends PHPUnit_Framework_TestCase
+class ITTest extends Yoast\PHPUnitPolyfills\TestCases\TestCase
 {
    /**
     * An HTML_Template_IT object
@@ -9,12 +12,12 @@ class ITTest extends PHPUnit_Framework_TestCase
     */
     var $tpl;
 
-    function setUp()
+    protected function set_up()
     {
         $this->tpl = new HTML_Template_IT(dirname(__FILE__) . '/templates');
     }
 
-    function tearDown()
+    protected function tear_down()
     {
         unset($this->tpl);
     }

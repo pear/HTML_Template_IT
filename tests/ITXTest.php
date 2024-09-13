@@ -23,7 +23,7 @@ class Callbacks
 
 class ITXTest extends ITTest
 {
-    function setUp()
+    function set_up()
     {
         $this->tpl = new HTML_Template_ITX(dirname(__FILE__) . '/templates');
     }
