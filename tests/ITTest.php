@@ -1,5 +1,10 @@
 <?php
 
+// As we want to run on PHP < 7.1,
+// we can't use return type declaration in fixtures.
+// Therefore we use PHPUnitPolyFills snakecase fixtures set_up/tear_down
+// instead of setUp/tearDown.
+// See https://github.com/Yoast/PHPUnit-Polyfills?tab=readme-ov-file#option-1-yoastphpunitpolyfillstestcasestestcase
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 require_once 'HTML/Template/IT.php';
