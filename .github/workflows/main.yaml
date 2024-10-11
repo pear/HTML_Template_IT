@@ -46,4 +46,4 @@ jobs:
     - run: sudo pear install --force *.tgz
     - run: sudo pear list
     - run: composer install
-    - run: ./vendor/bin/phpunit -c phpunit.xml.dist
+    - run: ./vendor/bin/phpunit tests
