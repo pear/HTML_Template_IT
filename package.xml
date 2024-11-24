@@ -8,6 +8,12 @@ This engine works on the foundation of blocks and placeholders. It uses the hier
 There are two classes to use for templating. HTML_Template_IT is used for basic templating needs.  HTML_Template_ITX gives you full power over the templating engine, allowing blocks to be added, and function callbacks to be used.
  </description>
  <lead>
+  <name>Mathieu Dubois</name>
+  <user>duboism</user>
+  <email>mdubois@genoscope.cns.fr</email>
+  <active>yes</active>
+ </lead>
+ <lead>
   <name>Gregory Currie</name>
   <user>gregorycu</user>
   <email>gregorycu@php.net</email>
