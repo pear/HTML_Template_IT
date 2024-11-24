@@ -37,9 +37,9 @@ There are two classes to use for templating. HTML_Template_IT is used for basic 
   <email>ulf.wendel@phpdoc.de</email>
   <active>no</active>
  </developer>
- <date>2018-01-22</date>
+ <date>2024-11-24</date>
  <version>
-  <release>1.3.1</release>
+  <release>1.3.2</release>
   <api>1.3.0</api>
  </version>
  <stability>
@@ -48,7 +48,10 @@ There are two classes to use for templating. HTML_Template_IT is used for basic 
  </stability>
  <license>BSD-3-Clause</license>
  <notes>
-- PR #2: Fixes for deprecated code
+- PR # 5: Support for PHP 7.2
+- PR # 9: Remove unused code
+- PR #11: fix: Array and string offset access syntax with curly braces is no longer supported
+- PR #12: Remove PHP under 5.6 and add last versions of PHP 7
  </notes>
  <contents>
   <dir name="/">
@@ -326,6 +329,24 @@ Changes since last stable release (1.2.1):
    <license>BSD-3-Clause</license>
    <notes>
 - PR #2: Fixes for deprecated code
+   </notes>
+  </release>
+  <release>
+   <version>
+   <release>1.3.2</release>
+   <api>1.3.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2024-11-24</date>
+   <license>BSD-3-Clause</license>
+   <notes>
+- PR  #5: Support for PHP 7.2
+- PR  #9: Remove unused code
+- PR #11: fix: Array and string offset access syntax with curly braces is no longer supported
+- PR #12: Remove PHP under 5.6 and add last versions of PHP 7
    </notes>
   </release>
  </changelog>
