@@ -60,7 +60,6 @@ There are two classes to use for templating. HTML_Template_IT is used for basic 
    <file name="HTML/Template/IT.php" role="php" />
    <file name="HTML/Template/ITX.php" role="php" />
    <file name="HTML/Template/IT_Error.php" role="php" />
-   <file name="tests/AllTests.php" role="test" />
    <file name="tests/ITTest.php" role="test" />
    <file name="tests/ITXTest.php" role="test" />
    <file name="tests/templates/addblock.html" role="test" />
