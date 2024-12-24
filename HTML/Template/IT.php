@@ -272,6 +272,13 @@ class HTML_Template_IT
     var $blockinner = array();
 
     /**
+     * Array of parent block of a block.
+     * @var      array
+     * @access   private
+     */
+    var $blockparents = array();
+
+    /**
      * List of blocks to preverse even if they are "empty".
      *
      * This is something special. Sometimes you have blocks that
