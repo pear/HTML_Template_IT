@@ -396,6 +396,8 @@ class HTML_Template_IT
 
     public static $globalOptions = [];
 
+    var $blockparents = array();
+
     /**
      * Builds some complex regular expressions and optinally sets the
      * file root directory.
